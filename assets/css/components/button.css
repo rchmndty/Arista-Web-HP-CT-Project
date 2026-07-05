@@ -1,0 +1,100 @@
+:root {
+    --primary: #3B82F6;
+    --accent: #8B5CF6;
+    --surface: #0F172A;
+    --border: rgba(255, 255, 255, 0.10);
+    --text-light: #F8FAFC;
+    --text-muted: #94A3B8;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #ffffff;
+    border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: #2563EB;
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.btn-glow:hover::after {
+    opacity: 1;
+}
+
+.btn-glow span, .btn-glow svg {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-glow {
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0);
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover svg {
+    transform: translateX(4px);
+}

@@ -1,0 +1,65 @@
+/* Component Micro Interactions Anchor Base */
+.interactive-element {
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-normal);
+}
+
+/* Shared Premium Glass Card Pattern Foundation */
+.card-base {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: var(--transition-normal);
+}
+
+.card-base:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Universal Minimal Badge Pattern */
+.badge-base {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--primary);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+/* Master Menu Navigation Line Interactions Link Base */
+.nav-link-base {
+    position: relative;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.nav-link-base:hover,
+.nav-link-base.active {
+    color: var(--text);
+}
+
+.nav-link-base::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: var(--transition-normal);
+}
+
+.nav-link-base:hover::after,
+.nav-link-base.active::after {
+    width: 100%;
+}

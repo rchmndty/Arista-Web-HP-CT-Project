@@ -1,0 +1,102 @@
+:root {
+    --border: rgba(255, 255, 255, 0.10);
+    --card: rgba(255, 255, 255, 0.05);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #3B82F6;
+    background: var(--card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.badge-glow {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.floating-badge {
+    position: absolute;
+    z-index: 10;
+    will-change: transform;
+}
+
+.badge-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.badge-card:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.badge-icon {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-text h4 {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #F8FAFC;
+}
+
+.badge-text p {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes float-delayed {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+.position-1 {
+    top: 15%;
+    left: -10%;
+    animation: float-slow 6s ease-in-out infinite;
+}
+
+.position-2 {
+    bottom: 20%;
+    right: -5%;
+    animation: float-delayed 7s ease-in-out infinite;
+}
+
+.position-3 {
+    top: 60%;
+    left: -5%;
+    animation: float-slow 8s ease-in-out infinite;
+}
+
+@media (max-width: 1024px) {
+    .position-1 { top: 10%; left: 5%; }
+    .position-2 { bottom: 10%; right: 5%; }
+    .position-3 { display: none; }
+}

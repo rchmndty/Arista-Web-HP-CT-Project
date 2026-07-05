@@ -1,0 +1,66 @@
+@import url('variables.css');
+@import url('typography.css');
+@import url('layout.css');
+@import url('utilities.css');
+@import url('components.css');
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Modern Animated Mesh Gradient Background Simulation */
+body::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: 
+        radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, rgba(34, 211, 230, 0.04) 0%, transparent 35%);
+    z-index: var(--z-negative);
+    pointer-events: none;
+}
+
+/* Subtle Premium Texture Grid Layer */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.012;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Android Webkit Custom Scrollbar Design */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+::selection {
+    background-color: rgba(5B, 130, 246, 0.3);
+    color: var(--text);
+}

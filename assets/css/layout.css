@@ -1,0 +1,151 @@
+.app-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    z-index: var(--z-base);
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--space-4);
+    padding-left: var(--space-4);
+}
+
+.section {
+    position: relative;
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Background System Isolation Wrapper */
+.background-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: var(--z-negative);
+    overflow: hidden;
+    background-color: var(--background);
+    pointer-events: none;
+}
+
+/* Animated Mesh Gradient Nodes Layout */
+.mesh-gradient-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    mix-blend-mode: screen;
+    filter: blur(140px);
+    will-change: transform;
+}
+
+.mesh-blob {
+    position: absolute;
+    border-radius: var(--radius-full);
+    opacity: 0.35;
+}
+
+.blob-1 {
+    top: -10%;
+    left: 10%;
+    width: 55vw;
+    height: 55vw;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 80%);
+}
+
+.blob-2 {
+    bottom: -10%;
+    right: 5%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 80%);
+}
+
+.blob-3 {
+    top: 30%;
+    left: 40%;
+    width: 45vw;
+    height: 45vw;
+    background: radial-gradient(circle, var(--highlight) 0%, transparent 75%);
+}
+
+/* Premium Aurora Background Strip Pattern */
+.aurora-bg {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg,
+        rgba(59, 130, 246, 0.05) 0%,
+        rgba(139, 92, 246, 0.03) 25%,
+        rgba(34, 211, 230, 0.04) 50%,
+        rgba(15, 23, 42, 0) 100__
+    );
+    transform-origin: center center;
+}
+
+/* Floating Light Fields */
+.floating-blur {
+    position: absolute;
+    border-radius: var(--radius-full);
+    mix-blend-mode: plus-lighter;
+    will-change: transform;
+}
+
+.blur-primary {
+    top: 20%;
+    left: 15%;
+    width: 300px;
+    height: 300px;
+    background: rgba(59, 130, 246, 0.12);
+    filter: blur(80px);
+}
+
+.blur-accent {
+    bottom: 25%;
+    right: 15%;
+    width: 350px;
+    height: 350px;
+    background: rgba(139, 92, 246, 0.1);
+    filter: blur(90px);
+}
+
+/* Hero Concentrated Spot Lighting */
+.soft-glow-hero {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    background: radial-gradient(circle at top center, rgba(59, 130, 246, 0.14) 0%, rgba(139, 92, 246, 0.06) 40%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Flex & Grid Core Definitions */
+.grid { display: grid; gap: var(--space-4); }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+
+@media (min-width: 768px) {
+    .section {
+        padding-top: var(--space-24);
+        padding-bottom: var(--space-24);
+    }
+}
