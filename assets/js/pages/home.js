@@ -1,14 +1,16 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Arista Project: Home Page Loaded Successfully.');
-    
-    const buttons = document.querySelectorAll('.btn-glow');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            // Placeholder interaction hook for performance telemetry
-        });
+/**
+ * ARISTA Page Controller - Homepage Hub
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    const headline = document.getElementById("hero-headline");
+    if (headline) {
+        const subheadline = document.querySelector(".hero-subheadline");
+        const ctaGroup = document.querySelector(".hero-cta-group");
         
-        button.addEventListener('mouseleave', () => {
-            // Reset state callback
-        });
-    });
+        setTimeout(() => {
+            headline.classList.add("reveal");
+            if (subheadline) subheadline.classList.add("reveal");
+            if (ctaGroup) ctaGroup.classList.add("reveal");
+        }, 100);
+    }
 });

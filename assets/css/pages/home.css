@@ -179,6 +179,192 @@
     filter: blur(20px);
 }
 
+/* About Section CSS Layout */
+.about-section {
+    padding: 100px 2rem;
+    background-color: var(--background);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: -10%;
+    width: 40vw;
+    height: 40vw;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-light);
+    margin-bottom: 1.25rem;
+}
+
+.section-desc {
+    font-size: 1.063rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+.vision-mission-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.vm-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+}
+
+.vm-card .card-icon {
+    flex-shrink: 0;
+}
+
+.vm-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.vm-content p {
+    font-size: 0.938rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.mission-list {
+    padding-left: 1.25rem;
+    margin: 0;
+}
+
+.mission-list li {
+    font-size: 0.938rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.mission-list li:last-child {
+    margin-bottom: 0;
+}
+
+.about-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+.about-image-wrapper {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-ui-mockup {
+    width: 80%;
+    background: #090d1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.mockup-header {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 6px;
+}
+
+.mockup-header .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mockup-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.mockup-body h5 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.mockup-body p {
+    font-size: 0.875rem;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+/* Scroll Reveal Core Animation States */
+.reveal-slide-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-slide-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-slide-left.active-reveal,
+.reveal-slide-right.active-reveal {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
 @media (max-width: 1024px) {
     .hero-container {
         grid-template-columns: 1fr;
@@ -198,6 +384,11 @@
         height: 380px;
         max-width: 500px;
         margin: 0 auto;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
     }
 }
 
@@ -226,5 +417,21 @@
 
     .hero-visual-wrapper {
         height: 300px;
+    }
+
+    .about-section {
+        padding: 60px 1.25rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .statistics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image-wrapper {
+        height: 220px;
     }
 }
