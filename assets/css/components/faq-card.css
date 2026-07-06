@@ -1,0 +1,6 @@
+/* Utility atomik khusus jika halaman FAQ mandiri diimplementasikan nanti */
+.faq-container {
+    position: relative;
+    z-index: var(--z-base);
+    padding: var(--space-2) 0;
+}

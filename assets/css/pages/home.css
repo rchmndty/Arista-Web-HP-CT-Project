@@ -544,3 +544,44 @@
         width: 100%;
     }
 }
+/* ==========================================
+   SPRINT 09 — Testimonials & FAQ Section Layout
+   ========================================== */
+.testimonials-section,
+.faq-section {
+    padding: 100px 2rem;
+    background-color: var(--background);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials-section::before {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 40vw;
+    height: 40vw;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.faq-section::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 35vw;
+    height: 35vw;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 640px) {
+    .testimonials-section,
+    .faq-section {
+        padding: 60px 1.25rem;
+    }
+}
