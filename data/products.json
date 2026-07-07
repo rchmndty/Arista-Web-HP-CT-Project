@@ -1,0 +1,62 @@
+[
+  {
+    "id": "prod-1",
+    "title": "Banner & Spanduk",
+    "category": "digital-printing",
+    "desc": "Cetak banner outdoor & indoor dengan warna tajam, bahan tebal, dan tahan cuaca ekstrim.",
+    "price": "Rp 25.000",
+    "unit": "/m²",
+    "image": "assets/images/products/banner.jpg",
+    "badge": "Best Seller"
+  },
+  {
+    "id": "prod-2",
+    "title": "Jilid Hardcover Skripsi",
+    "category": "dokumen-jilid",
+    "desc": "Jilid hardcover berkualitas premium untuk skripsi, tesis, laporan keuangan dengan pengerjaan presisi.",
+    "price": "Rp 35.000",
+    "unit": "/buku",
+    "image": "assets/images/products/hardcover.jpg",
+    "badge": "Populer"
+  },
+  {
+    "id": "prod-3",
+    "title": "Cetak Foto Studio Premium",
+    "category": "cetak-foto",
+    "desc": "Cetak foto kualitas laboratorium digital dengan kertas premium glossy atau doff, tahan pudar bertahun-tahun.",
+    "price": "Rp 5.000",
+    "unit": "/lembar",
+    "image": "assets/images/products/photo.jpg",
+    "badge": "Kualitas HD"
+  },
+  {
+    "id": "prod-4",
+    "title": "Sticker Label Kustom",
+    "category": "digital-printing",
+    "desc": "Sticker kustom untuk label kemasan produk UMKM, tahan air dengan pemotongan pola rapi menggunakan mesin otomatis.",
+    "price": "Rp 15.000",
+    "unit": "/lembar A3",
+    "image": "assets/images/products/sticker.jpg",
+    "badge": "Glow"
+  },
+  {
+    "id": "prod-5",
+    "title": "Kartu Nama Eksklusif",
+    "category": "digital-printing",
+    "desc": "Cetak kartu nama dua sisi dengan kertas Art Carton tebal ditambah opsi laminating doff atau glossy premium.",
+    "price": "Rp 35.000",
+    "unit": "/box",
+    "image": "assets/images/products/business-card.jpg",
+    "badge": "Promo"
+  },
+  {
+    "id": "prod-6",
+    "title": "Fotokopi & Scan Dokumen",
+    "category": "dokumen-jilid",
+    "desc": "Layanan penggandaan berkas super cepat serta scanning arsip resolusi tinggi langsung menjadi format PDF digital.",
+    "price": "Rp 250",
+    "unit": "/lembar",
+    "image": "assets/images/products/photocopy.jpg",
+    "badge": "Cepat"
+  }
+]

@@ -1,0 +1,43 @@
+/* ==========================================================================
+   ARISTA COMPONENT - FILTER TABS
+   ========================================================================== */
+
+.filter-box-container {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+.filter-box-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.filter-tabs {
+    display: flex;
+    gap: var(--space-2);
+    white-space: nowrap;
+}
+
+.filter-tab {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.filter-tab:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.filter-tab.active {
+    color: var(--text);
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.1);
+}

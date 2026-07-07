@@ -63,3 +63,7 @@
 .nav-link-base.active::after {
     width: 100%;
 }
+/* Penambahan import komponen baru di akhir file assets/css/components.css */
+@import url('components/search.css');
+@import url('components/filter.css');
+@import url('components/pagination.css');

@@ -3,128 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Produk | Arista Digital Printing</title>
+    <title>Katalog Produk - Arista Digital Printing</title>
+    <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/utilities.css">
+    <link rel="stylesheet" href="assets/css/animation.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components/navbar.css">
-    <link rel="stylesheet" href="assets/css/components/footer.css">
+    <link rel="stylesheet" href="assets/css/components/button.css">
+    <link rel="stylesheet" href="assets/css/components/badge.css">
+    <link rel="stylesheet" href="assets/css/components/card.css">
+    <link rel="stylesheet" href="assets/css/components/product-card.css">
+    <link rel="stylesheet" href="assets/css/components/search.css">
+    <link rel="stylesheet" href="assets/css/components/filter.css">
+    <link rel="stylesheet" href="assets/css/components/pagination.css">
+    <link rel="stylesheet" href="assets/css/pages/catalog.css">
 </head>
 <body>
+
     <div class="noise-overlay"></div>
-    
-    <div class="background-wrapper">
-        <div class="mesh-gradient-bg">
-            <div class="mesh-blob blob-3"></div>
-        </div>
-    </div>
 
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="nav-logo">Arista<span>.</span></a>
-            <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Beranda</a></li>
+                <li><a href="about.html" class="nav-link">Tentang</a></li>
+                <li><a href="services.html" class="nav-link">Layanan</a></li>
+                <li><a href="catalog.html" class="nav-link active">Katalog</a></li>
+                <li><a href="contact.html" class="nav-link">Kontak</a></li>
+                <li><a href="contact.html" class="nav-cta">Hubungi Kami</a></li>
+            </ul>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <div class="nav-menu">
-                <a href="index.html" class="nav-link">Beranda</a>
-                <a href="about.html" class="nav-link">Tentang</a>
-                <a href="services.html" class="nav-link">Layanan</a>
-                <a href="catalog.html" class="nav-link">Katalog</a>
-                <a href="contact.html" class="nav-link">Kontak</a>
-                <a href="contact.html" class="nav-cta">Pesan Sekarang</a>
-            </div>
         </div>
     </nav>
 
-    <div class="app-wrapper">
-        <section class="section">
-            <div class="container" style="margin-top: 12vh;">
-                <span class="badge-base mb-3">Pilihan Produk</span>
-                <h1 class="text-gradient-accent mb-4">Katalog Cetak</h1>
-                <p class="text-secondary mb-8" style="max-width: 600px;">Gunakan modul filter pencarian interaktif untuk menemukan spesifikasi item cetak yang ideal untuk event atau instansi Anda.</p>
-                
-                <div class="grid grid-cols-1 grid-cols-sm-2 grid-cols-lg-4 gap-4">
-                    <div class="card-base hover-lift">
-                        <div style="width:100%; height:160px; background: rgba(255,255,255,0.02); border-radius:var(--radius-md); margin-bottom:var(--space-3);"></div>
-                        <h4 class="text-white">Banner / Spanduk</h4>
-                        <p class="text-secondary small mt-1">Bahan Flexi premium korosi rendah warna solid.</p>
-                        <a href="product.html" class="text-primary small mt-3 flex items-center" style="font-weight:var(--fw-semibold);">Detail Selengkapnya &rarr;</a>
+    <main class="catalog-main">
+        <header class="catalog-header">
+            <div class="container">
+                <div class="badge-container text-center">
+                    <span class="badge badge-glow">📦 Catalog Collection</span>
+                </div>
+                <h1 class="catalog-title">Semua Produk Unggulan</h1>
+                <p class="catalog-subtitle">Temukan berbagai solusi cetak digital berkualitas modern dan kebutuhan office terlengkap untuk menunjang aktivitas Anda.</p>
+            </div>
+        </header>
+
+        <section class="catalog-controls-section">
+            <div class="container">
+                <div class="controls-wrapper card">
+                    <div class="search-box-container">
+                        <div class="search-input-wrapper">
+                            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="catalogSearch" placeholder="Cari nama produk cetak atau perlengkapan kantor..." aria-label="Cari Produk">
+                            <button id="clearSearch" class="clear-search-btn" aria-label="Hapus Pencarian" style="display: none;">&times;</button>
+                        </div>
                     </div>
-                    <div class="card-base hover-lift">
-                        <div style="width:100%; height:160px; background: rgba(255,255,255,0.02); border-radius:var(--radius-md); margin-bottom:var(--space-3);"></div>
-                        <h4 class="text-white">Stiker Vinyl</h4>
-                        <p class="text-secondary small mt-1">Waterproof glosssy coating cutting presisi.</p>
-                        <a href="product.html" class="text-primary small mt-3 flex items-center" style="font-weight:var(--fw-semibold);">Detail Selengkapnya &rarr;</a>
-                    </div>
-                    <div class="card-base hover-lift">
-                        <div style="width:100%; height:160px; background: rgba(255,255,255,0.02); border-radius:var(--radius-md); margin-bottom:var(--space-3);"></div>
-                        <h4 class="text-white">Kartu Nama</h4>
-                        <p class="text-secondary small mt-1">Art Carton tebal tekstur halus minimalis.</p>
-                        <a href="product.html" class="text-primary small mt-3 flex items-center" style="font-weight:var(--fw-semibold);">Detail Selengkapnya &rarr;</a>
-                    </div>
-                    <div class="card-base hover-lift">
-                        <div style="width:100%; height:160px; background: rgba(255,255,255,0.02); border-radius:var(--radius-md); margin-bottom:var(--space-3);"></div>
-                        <h4 class="text-white">Brosur / Flyer</h4>
-                        <p class="text-secondary small mt-1">Cetak bolak-balik high definition brosur.</p>
-                        <a href="product.html" class="text-primary small mt-3 flex items-center" style="font-weight:var(--fw-semibold);">Detail Selengkapnya &rarr;</a>
+
+                    <div class="filter-box-container">
+                        <div class="filter-tabs" role="tablist">
+                            <button class="filter-tab active" data-category="all" role="tab" aria-selected="true">Semua Kategori</button>
+                            <button class="filter-tab" data-category="digital-printing" role="tab" aria-selected="false">Digital Printing</button>
+                            <button class="filter-tab" data-category="dokumen-jilid" role="tab" aria-selected="false">Dokumen & Jilid</button>
+                            <button class="filter-tab" data-category="cetak-foto" role="tab" aria-selected="false">Cetak Foto</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-    </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand-info">
-                    <a href="index.html" class="footer-logo">Arista<span>.</span></a>
-                    <p class="footer-desc">Pusat layanan digital printing modern terlengkap yang menghadirkan proses mudah, pelayanan cepat, dan hasil berkualitas tinggi di Gemba.</p>
-                    <div class="footer-socials">
-                        <a href="#" class="social-icon-link" aria-label="Facebook Link Context"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/></svg></a>
-                        <a href="#" class="social-icon-link" aria-label="Instagram Link Context"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-                        <a href="#" class="social-icon-link" aria-label="WhatsApp Link Context"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-3.414c1.648.978 3.26 1.48 4.867 1.481 5.425.002 9.837-4.411 9.84-9.84.002-2.63-1.023-5.101-2.885-6.965C16.548 3.4 14.074 2.374 11.444 2.374c-5.43 0-9.843 4.412-9.845 9.842 0 1.742.49 3.442 1.417 4.914L2.012 21.93l4.635-1.344z"/></svg></a>
+        <section class="catalog-display-section">
+            <div class="container">
+                <div id="catalogGrid" class="products-grid">
                     </div>
+
+                <div id="emptyState" class="empty-state-wrapper card" style="display: none;">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>Produk Tidak Ditemukan</h3>
+                    <p>Maaf, produk dengan kata kunci tersebut tidak tersedia dalam koleksi kami saat ini. Silakan coba kata kunci lain atau hubungi kami langsung.</p>
+                    <button id="resetFiltersBtn" class="btn btn-secondary">Reset Pencarian & Filter</button>
                 </div>
-                <div>
-                    <h4 class="footer-col-title">Navigasi</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="index.html" class="footer-link-node">Beranda</a></li>
-                        <li><a href="about.html" class="footer-link-node">Tentang Kami</a></li>
-                        <li><a href="services.html" class="footer-link-node">Layanan Utama</a></li>
-                        <li><a href="catalog.html" class="footer-link-node">Katalog Produk</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-col-title">Layanan</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="services.html" class="footer-link-node">Digital Printing</a></li>
-                        <li><a href="services.html" class="footer-link-node">Dokumentasi</a></li>
-                        <li><a href="services.html" class="footer-link-node">Office Solutions</a></li>
-                        <li><a href="services.html" class="footer-link-node">Layanan PPOB</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-col-title">Lokasi</h4>
-                    <ul class="footer-links-list">
-                        <li class="footer-link-node" style="pointer-events: none;">Gemba, Maluku</li>
-                        <li class="footer-link-node" style="pointer-events: none;">Indonesia</li>
-                        <li class="footer-link-node" style="pointer-events: none; margin-top: var(--space-2); color: var(--text);">Jam Operasional:</li>
-                        <li class="footer-link-node" style="pointer-events: none;">Setiap Hari (08:00 - 21:00)</li>
-                    </ul>
-                </div>
+
+                <div id="paginationContainer" class="pagination-wrapper">
+                    </div>
             </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">&copy; <span id="footerCurrentYear"></span> Arista Digital Printing. All Rights Reserved.</p>
-                <div class="footer-legal-links">
-                    <a href="#" class="footer-legal-node">Privacy Policy</a>
-                    <a href="#" class="footer-legal-node">Terms of Service</a>
-                </div>
-            </div>
+        </section>
+    </main>
+
+    <footer class="footer-simple" style="padding: var(--space-4) 0; border-top: 1px solid var(--border); margin-top: var(--space-12); text-align: center;">
+        <div class="container">
+            <p style="color: var(--text-secondary); font-size: var(--fs-sm);">&copy; <span id="footerCurrentYear"></span> Arista Digital Printing. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <script src="assets/js/components/navbar.js" defer></script>
-    <script src="assets/js/components/footer.js" defer></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/components/navbar.js"></script>
+    <script src="assets/js/components/footer.js"></script>
+    <script src="assets/js/components/search.js"></script>
+    <script src="assets/js/components/filter.js"></script>
+    <script src="assets/js/components/pagination.js"></script>
+    <script src="assets/js/pages/catalog.js"></script>
 </body>
 </html>
