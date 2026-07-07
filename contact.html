@@ -3,121 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hubungi Kami | Arista Digital Printing</title>
+    <title>Hubungi Arista - Arista Digital Printing</title>
+    <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/utilities.css">
+    <link rel="stylesheet" href="assets/css/animation.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components/navbar.css">
+    <link rel="stylesheet" href="assets/css/components/button.css">
+    <link rel="stylesheet" href="assets/css/components/card.css">
+    <link rel="stylesheet" href="assets/css/pages/contact.css">
     <link rel="stylesheet" href="assets/css/components/footer.css">
 </head>
 <body>
     <div class="noise-overlay"></div>
-    
-    <div class="background-wrapper">
-        <div class="mesh-gradient-bg">
-            <div class="mesh-blob blob-2"></div>
-            <div class="mesh-blob blob-3"></div>
-        </div>
-    </div>
 
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="nav-logo">Arista<span>.</span></a>
-            <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <a href="index.html" class="nav-logo">ARISTA<span>.</span></a>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Beranda</a>
                 <a href="about.html" class="nav-link">Tentang</a>
                 <a href="services.html" class="nav-link">Layanan</a>
                 <a href="catalog.html" class="nav-link">Katalog</a>
                 <a href="contact.html" class="nav-link">Kontak</a>
-                <a href="contact.html" class="nav-cta">Pesan Sekarang</a>
+                <a href="catalog.html" class="btn btn-primary nav-cta">Pesan Sekarang</a>
             </div>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <div class="app-wrapper">
-        <section class="section">
-            <div class="container" style="margin-top: 12vh; min-height: 55vh;">
-                <span class="badge-base mb-3">Hubungi Kami</span>
-                <h1 class="text-gradient-accent mb-4">Mulai Konsultasi Cetak</h1>
-                <p class="text-secondary mb-8" style="max-width: 550px;">Tim profesional kami siap melayani dan memberikan resolusi rancangan terbaik untuk kepuasan berkas Anda.</p>
+    <section class="contact-hero section-padding">
+        <div class="container text-center">
+            <h1 class="reveal-text">Hubungi Kami</h1>
+            <p class="section-desc">Punya pertanyaan atau kebutuhan cetak mendesak? Tim kami di Gemba siap membantu Anda kapan saja.</p> <br>
+        </div>
+    </section>
+
+    <section class="contact-content-grid pb-24">
+        <div class="container">
+            <div class="contact-layout-wrapper">
                 
-                <div class="grid grid-cols-1 grid-cols-md-2 gap-6">
-                    <div class="card-base">
-                        <h3 class="text-white mb-4">Informasi Kontak</h3>
-                        <div class="flex flex-col gap-4">
-                            <div>
-                                <small style="display:block;">Alamat Operasional:</small>
-                                <span class="text-white" style="font-size:var(--fs-sm);">Gemba, Waimital, Kec. Kairatu, Kabupaten Seram Bagian Barat, Maluku</span>
-                            </div>
-                            <div>
-                                <small style="display:block;">WhatsApp Hotline:</small>
-                                <a href="https://wa.me/#" class="text-primary" style="font-size:var(--fs-sm); font-weight:var(--fw-semibold);">+62 812-XXXX-XXXX</a>
-                            </div>
+                <div class="contact-info-column">
+                    <div class="info-glass-card">
+                        <div class="info-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <div class="info-details">
+                            <h3>Lokasi Kami</h3>
+                            <p>Gemba, Sektor Utama Pusat Bisnis & Dokumentasi</p>
                         </div>
                     </div>
-                    <div class="card-base" style="display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.01);">
-                        <span class="text-secondary small">[ Google Maps Interactive Node Context ]</span>
+
+                    <div class="info-glass-card">
+                        <div class="info-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </div>
+                        <div class="info-details">
+                            <h3>Jam Operasional</h3>
+                            <p>Senin - Sabtu: 08:00 - 21:00 WIT</p>
+                            <p class="text-secondary-highlight">Minggu / Hari Libur Nasional: Tutup</p>
+                        </div>
+                    </div>
+
+                    <div class="info-glass-card dynamic-glow-trigger">
+                        <div class="info-details">
+                            <h3>Respon Cepat via WhatsApp</h3>
+                            <p>Kirim file atau konsultasikan cetakan Anda langsung dengan operator kami.</p>
+                            <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-whatsapp-cta">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.004 2c-5.525 0-10 4.477-10 10 0 1.777.463 3.448 1.275 4.897l-1.353 4.943 5.054-1.325c1.404.767 3.006 1.202 4.712 1.202 5.524 0 10-4.477 10-10s-4.476-10-10-10zm5.835 14.126c-.244.688-1.22 1.251-1.682 1.298-.443.044-.997.067-1.611-.129-.379-.122-.871-.299-1.479-.56-2.583-1.109-4.246-3.743-4.375-3.914-.129-.171-1.042-1.385-1.042-2.641 0-1.257.643-1.874.871-2.119.229-.245.499-.306.665-.306.166 0 .332.002.477.009.15.007.351-.057.549.424.199.488.683 1.666.742 1.787.06.121.1.263.02.424-.08.162-.121.263-.243.404-.121.142-.254.316-.363.424-.122.121-.249.253-.107.498.142.244.633 1.042 1.358 1.687.933.829 1.722 1.085 1.966 1.207.244.121.385.101.527-.06.142-.162.604-.705.766-.946.162-.242.323-.202.544-.121.222.082 1.409.665 1.651.786.242.121.403.182.463.283.06.1.06.587-.184 1.275z"/></svg>
+                                Chat Sekarang
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+
+                <div class="contact-form-column">
+                    
+<form class="glass-form" id="aristaContactForm">
+    <div class="form-group">
+        <input type="text" id="name" required placeholder=" ">
+        <label for="name">Nama</label>
     </div>
+    <div class="form-group">
+        <input type="text" id="service" required placeholder=" ">
+        <label for="service">Layanan yang dibutuhkan</label>
+    </div>
+    <div class="form-group">
+        <input type="tel" id="phone" required placeholder=" ">
+        <label for="phone">Nomor WhatsApp</label>
+    </div>
+    <div class="form-group">
+        <textarea id="message" rows="5" required placeholder=" "></textarea>
+        <label for="message">Detail Pesanan</label>
+    </div>
+    <button type="submit" id="sendBtn" class="btn btn-primary w-full justify-center">
+        Kirim Pesan
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+</form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="maps-section pb-24">
+        <div class="container">
+            <div class="maps-glass-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.472856980287!2d128.291778!3d-3.644139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwMzgnMzguOSJTIDEyOMKwMTcnMzAuNCJF!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand-info">
-                    <a href="index.html" class="footer-logo">Arista<span>.</span></a>
-                    <p class="footer-desc">Pusat layanan digital printing modern terlengkap yang menghadirkan proses mudah, pelayanan cepat, dan hasil berkualitas tinggi di Gemba.</p>
-                    <div class="footer-socials">
-                        <a href="#" class="social-icon-link" aria-label="Facebook Link Context"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/></svg></a>
-                        <a href="#" class="social-icon-link" aria-label="Instagram Link Context"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-                        <a href="#" class="social-icon-link" aria-label="WhatsApp Link Context"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-3.414c1.648.978 3.26 1.48 4.867 1.481 5.425.002 9.837-4.411 9.84-9.84.002-2.63-1.023-5.101-2.885-6.965C16.548 3.4 14.074 2.374 11.444 2.374c-5.43 0-9.843 4.412-9.845 9.842 0 1.742.49 3.442 1.417 4.914L2.012 21.93l4.635-1.344z"/></svg></a>
+                    <a href="index.html" class="footer-logo">ARISTA<span>.</span></a>
+                    <p class="footer-desc">Pusat digital printing modern & office solution terpercaya di Gemba.</p>
+                </div>
+                <div class="footer-links-column">
+                    <h4 class="footer-col-title">Perusahaan</h4>
+                    <div class="footer-links-list">
+                        <a href="about.html" class="footer-link-node">Tentang Kami</a>
+                        <a href="services.html" class="footer-link-node">Layanan</a>
                     </div>
                 </div>
-                <div>
-                    <h4 class="footer-col-title">Navigasi</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="index.html" class="footer-link-node">Beranda</a></li>
-                        <li><a href="about.html" class="footer-link-node">Tentang Kami</a></li>
-                        <li><a href="services.html" class="footer-link-node">Layanan Utama</a></li>
-                        <li><a href="catalog.html" class="footer-link-node">Katalog Produk</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-col-title">Layanan</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="services.html" class="footer-link-node">Digital Printing</a></li>
-                        <li><a href="services.html" class="footer-link-node">Dokumentasi</a></li>
-                        <li><a href="services.html" class="footer-link-node">Office Solutions</a></li>
-                        <li><a href="services.html" class="footer-link-node">Layanan PPOB</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-col-title">Lokasi</h4>
-                    <ul class="footer-links-list">
-                        <li class="footer-link-node" style="pointer-events: none;">Gemba, Maluku</li>
-                        <li class="footer-link-node" style="pointer-events: none;">Indonesia</li>
-                        <li class="footer-link-node" style="pointer-events: none; margin-top: var(--space-2); color: var(--text);">Jam Operasional:</li>
-                        <li class="footer-link-node" style="pointer-events: none;">Setiap Hari (08:00 - 21:00)</li>
-                    </ul>
+                <div class="footer-links-column">
+                    <h4 class="footer-col-title">Tautan</h4>
+                    <div class="footer-links-list">
+                        <a href="catalog.html" class="footer-link-node">Katalog Produk</a>
+                        <a href="contact.html" class="footer-link-node">Hubungi Kami</a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copyright">&copy; <span id="footerCurrentYear"></span> Arista Digital Printing. All Rights Reserved.</p>
-                <div class="footer-legal-links">
-                    <a href="#" class="footer-legal-node">Privacy Policy</a>
-                    <a href="#" class="footer-legal-node">Terms of Service</a>
-                </div>
+                <p class="footer-copyright">&copy; <span id="footerCurrentYear"></span> Arista Digital Printing. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/components/navbar.js" defer></script>
-    <script src="assets/js/components/footer.js" defer></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/components/navbar.js"></script>
+    <script src="assets/js/components/footer.js"></script>
+    <script src="assets/js/pages/contact.js"></script>
 </body>
 </html>
