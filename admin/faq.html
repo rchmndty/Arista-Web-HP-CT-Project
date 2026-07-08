@@ -62,18 +62,22 @@
         </div>
     </div>
 
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/admin/session.js"></script>
-    <script src="../assets/js/admin/faq.js"></script>
-      <!-- ... batas akhir form modal atau konten workspace ... -->
-    
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/admin/session.js"></script>
-    <!-- Tambahkan panggil script terpusat ini di atas script engine bawaan page -->
-    <script src="../assets/js/admin/sidebar.js"></script> 
-    <script src="../assets/js/admin/services.js"></script> <!-- Atau faq.js / testimonials.js -->
-</body>
-</html>
+
+<!-- 1. Pemasangan Pustaka SDK Supabase Utama (WAJIB ADA) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+  <script src="../assets/js/admin/session.js"></script>
+
+
+<!-- 2. Pemasangan Konfigurasi & Inisialisasi Konektor -->
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/supabase.js"></script>
+
+<!-- 3. Mesin Pengaman Sesi (WAJIB DIBAWAH SDK SUPABASE) -->
+
+<!-- 4. Script Khusus Halaman (Ganti dengan file JS halaman terkait) -->
+<script src="../assets/js/admin/sidebar.js"></script> 
+<script src="../assets/js/admin/faq.js"></script> <!-- Sesuaikan dengan nama halaman -->
 
 </body>
 </html>

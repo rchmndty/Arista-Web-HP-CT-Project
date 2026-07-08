@@ -30,8 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (error) throw error;
 
-            // Berhasil login, penanganan perpindahan halaman diatur oleh session.js
-            errorDisplay.classList.add("hidden");
+            // ✅ LOGIKA PERPINDAHAN HALAMAN (FIX)
+            // Jika tidak ada error, artinya sukses. Langsung tendang user ke dashboard!
+            window.location.href = 'dashboard.html';
 
         } catch (error) {
             // Kembalikan visual state tombol ke semula
