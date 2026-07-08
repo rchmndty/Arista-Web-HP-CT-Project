@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Produk - Arista Admin</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/typography.css">
+    <link rel="stylesheet" href="../assets/css/utilities.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin-dashboard.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin-products.css">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <div class="dashboard-wrapper">
+        
+
+        <main class="dashboard-main">
+            <header class="admin-header">
+                <div class="header-title-area">
+                    <h1>Katalog Konten Produk</h1>
+                    <p class="breadcrumb">Admin / Produk CMS (Local Mock)</p>
+                </div>
+                <div class="header-action">
+                    <button class="btn btn-primary" id="openAddModalBtn">
+                        <span>+ Tambah Produk Baru</span>
+                    </button>
+                </div>
+            </header>
+
+            <section class="dashboard-content">
+                <div class="cms-filter-bar">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="cmsProductSearch" placeholder="Cari nama atau deskripsi produk...">
+                    </div>
+                    <div class="category-select-wrapper">
+                        <select id="cmsCategoryFilter">
+                            <option value="all">Semua Kategori</option>
+                            <option value="digital-printing">Digital Printing</option>
+                            <option value="dokumen-jilid">Dokumen & Jilid</option>
+                            <option value="cetak-foto">Cetak Foto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="products-list-grid" id="productsCmsGrid">
+                    <div class="loading-state-cms">Memuat data penyimpanan lokal...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="cms-modal-overlay" id="productModal">
+        <div class="cms-modal-card">
+            <div class="modal-card-header">
+                <h3 id="modalTitle">Tambah Item Produk</h3>
+                <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <form id="productForm" class="modal-card-body">
+                <input type="hidden" id="productId">
+                
+                <div class="form-group-admin">
+                    <label for="productTitle">Nama Produk</label>
+                    <input type="text" id="productTitle" required placeholder="Contoh: Banner Spanduk Flexi High-Res">
+                </div>
+
+                <div class="form-row-admin">
+                    <div class="form-group-admin">
+                        <label for="productCategory">Kategori</label>
+                        <select id="productCategory" required>
+                            <option value="digital-printing">Digital Printing</option>
+                            <option value="dokumen-jilid">Dokumen & Jilid</option>
+                            <option value="cetak-foto">Cetak Foto</option>
+                        </select>
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="productBadge">Badge Status (Opsional)</label>
+                        <input type="text" id="productBadge" placeholder="Contoh: Best Seller / Populer">
+                    </div>
+                </div>
+
+                <div class="form-row-admin">
+                    <div class="form-group-admin">
+                        <label for="productPrice">Harga Display</label>
+                        <input type="text" id="productPrice" required placeholder="Contoh: Rp 25.000">
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="productUnit">Satuan / Unit</label>
+                        <input type="text" id="productUnit" required placeholder="Contoh: /m², /rim, /lembar">
+                    </div>
+                </div>
+
+                <div class="form-group-admin">
+                    <label for="productDesc">Deskripsi Detil Produk</label>
+                    <textarea id="productDesc" rows="3" required placeholder="Tulis spesifikasi bahan, ukuran standar cetak, dll..."></textarea>
+                </div>
+
+                <div class="form-group-admin">
+                    <label for="productImageUrl">URL Gambar Sampul Produk</label>
+                    <input type="text" id="productImageUrl" required placeholder="Contoh: ../assets/images/catalog/banner.jpg">
+                    <div class="image-preview-container-cms">
+                        <p class="img-placeholder-text">Pratinjau Gambar Belum Tersedia</p>
+                        <img src="" id="imgCmsPreview" alt="Preview" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="modal-card-footer">
+                    <button type="button" class="btn-cancel" id="cancelModalBtn">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="saveProductBtn">
+                        <span>Simpan Data</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/admin/session.js"></script>
+    <script src="../assets/js/admin/products.js"></script>
+      <!-- ... batas akhir form modal atau konten workspace ... -->
+    
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/admin/session.js"></script>
+    <!-- Tambahkan panggil script terpusat ini di atas script engine bawaan page -->
+    <script src="../assets/js/admin/sidebar.js"></script> 
+    <script src="../assets/js/admin/services.js"></script> <!-- Atau faq.js / testimonials.js -->
+</body>
+</html>
+
+</body>
+</html>

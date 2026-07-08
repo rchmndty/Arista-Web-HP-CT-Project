@@ -1,0 +1,282 @@
+/**
+ * ARISTA Styling Framework - Advanced Services, FAQ, & Testimonial CRUD Layout
+ * Optimized for Premium Dark Aesthetic & Smooth Modal Animations
+ */
+
+/* ==========================================================================
+   1. GRID LIST & PREMIUM CARD DESIGN
+   ========================================================================== */
+.services-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-6, 24px);
+    margin-top: var(--space-4, 16px);
+}
+
+.cms-product-card-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--space-5, 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.25s ease, 
+                box-shadow 0.25s ease;
+}
+
+.cms-product-card-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.4); /* Blue highlight on hover */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* Typography inside Cards */
+.cms-card-details h4 {
+    font-size: var(--fs-md, 16px);
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: var(--space-1, 4px);
+}
+
+.cms-card-category-slug {
+    font-size: var(--fs-xs, 12px);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--primary, #3b82f6);
+    letter-spacing: 0.05em;
+}
+
+/* Loading & Empty State Styling */
+.loading-state-cms {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-12, 48px) 0;
+    color: var(--text-secondary, #94a3b8);
+    font-size: var(--fs-sm, 14px);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md, 8px);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+/* ==========================================================================
+   2. CARD ACTION ROW BUTTONS
+   ========================================================================== */
+.cms-card-actions-row {
+    display: flex;
+    gap: var(--space-2, 8px);
+    margin-top: var(--space-4, 16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: var(--space-4, 16px);
+}
+
+.btn-cms-action {
+    flex: 1;
+    padding: var(--space-2, 8px) var(--space-3, 12px);
+    font-size: var(--fs-xs, 12px);
+    font-weight: 600;
+    border-radius: var(--radius-md, 6px);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    text-align: center;
+}
+
+.btn-cms-action.btn-edit {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+
+.btn-cms-action.btn-edit:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.btn-cms-action.btn-delete {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+}
+
+.btn-cms-action.btn-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   3. GLASSMORPHIC MODAL INTERFACE
+   ========================================================================== */
+.cms-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(4, 7, 16, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: var(--space-4, 16px);
+}
+
+.cms-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cms-modal-card {
+    background: #0f172a; /* Slate 900 background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl, 16px);
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cms-modal-overlay.active .cms-modal-card {
+    transform: scale(1);
+}
+
+/* Modal Header */
+.modal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-5, 20px) var(--space-6, 24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.modal-card-header h3 {
+    font-size: var(--fs-lg, 18px);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary, #94a3b8);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: var(--space-1, 4px);
+    transition: color 0.2s;
+}
+
+.close-modal-btn:hover {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   4. FORM COMPONENT & INPUTS
+   ========================================================================== */
+.modal-card-body {
+    padding: var(--space-6, 24px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 16px);
+}
+
+.form-group-admin {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, 8px);
+}
+
+.form-group-admin label {
+    font-size: var(--fs-xs, 12px);
+    font-weight: 600;
+    color: var(--text-secondary, #94a3b8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.form-group-admin input[type="text"],
+.form-group-admin input[type="email"],
+.form-group-admin input[type="url"],
+.form-group-admin textarea {
+    width: 100%;
+    padding: var(--space-3, 12px);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md, 8px);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: var(--fs-sm, 14px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group-admin input:focus,
+.form-group-admin textarea:focus {
+    outline: none;
+    border-color: var(--primary, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Placeholder adjustments */
+.form-group-admin input::placeholder,
+.form-group-admin textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   5. MODAL CONTROL FOOTER BUTTONS
+   ========================================================================== */
+.modal-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3, 12px);
+    margin-top: var(--space-2, 8px);
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary, #94a3b8);
+    padding: var(--space-3, 12px) var(--space-5, 20px);
+    border-radius: var(--radius-md, 8px);
+    font-size: var(--fs-sm, 14px);
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+/* Primary Submit Button style wrapper fallback */
+.modal-card-footer .btn-primary {
+    background: #3b82f6;
+    color: #ffffff;
+    border: none;
+    padding: var(--space-3, 12px) var(--space-5, 20px);
+    border-radius: var(--radius-md, 8px);
+    font-size: var(--fs-sm, 14px);
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s active;
+}
+
+.modal-card-footer .btn-primary:hover {
+    background: #2563eb;
+}

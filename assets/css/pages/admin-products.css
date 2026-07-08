@@ -1,0 +1,308 @@
+/**
+ * ARISTA Styling Framework - Product CMS Grid and Overlay (Sprint 15)
+ */
+
+/* Kontrol Bar Atas */
+.cms-filter-bar {
+    display: flex;
+    gap: var(--spacing-md, 16px);
+    margin-bottom: var(--spacing-xl, 32px);
+    background: rgba(255, 255, 255, 0.03);
+    padding: var(--spacing-md, 16px);
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-input-wrapper {
+    flex: 1;
+}
+
+.search-input-wrapper input,
+.category-select-wrapper select,
+.form-group-admin select {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm, 6px);
+    color: #ffffff;
+    font-size: var(--font-size-base, 14px);
+    transition: border-color var(--transition-speed, 0.3s);
+}
+
+.search-input-wrapper input:focus,
+.category-select-wrapper select:focus,
+.form-group-admin select:focus {
+    border-color: var(--color-primary, #007bff);
+    outline: none;
+}
+
+.form-row-admin {
+    display: flex;
+    gap: 16px;
+}
+
+.form-row-admin .form-group-admin {
+    flex: 1;
+}
+
+.form-group-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group-admin label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-group-admin textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm, 6px);
+    color: #ffffff;
+    font-size: var(--font-size-base, 14px);
+    resize: none;
+}
+
+/* List Grid */
+.products-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg, 24px);
+}
+
+.loading-state-cms {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl, 48px);
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+.cms-product-card-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md, 12px);
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cms-product-card-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cms-card-img-frame {
+    position: relative;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.cms-card-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cms-badge-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--color-primary, #007bff);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.cms-card-details {
+    padding: var(--spacing-md, 16px);
+}
+
+.cms-card-category-slug {
+    font-size: 12px;
+    color: var(--color-primary, #007bff);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.cms-card-details h4 {
+    margin: 6px 0;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.cms-card-price-display {
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: var(--spacing-md, 16px);
+}
+
+.cms-card-price-display small {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 2px;
+}
+
+.cms-card-actions-row {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-cms-action {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: var(--radius-sm, 6px);
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-cms-action.btn-edit {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.btn-cms-action.btn-edit:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-cms-action.btn-delete {
+    background: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+}
+
+.btn-cms-action.btn-delete:hover {
+    background: rgba(220, 53, 69, 0.3);
+}
+
+/* Modul Dialog Overlay */
+.cms-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.cms-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cms-modal-card {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 550px;
+    border-radius: var(--radius-md, 12px);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.modal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-card-header h3 {
+    color: #fff;
+    font-size: 18px;
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.image-preview-container-cms {
+    width: 100%;
+    height: 120px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.image-preview-container-cms img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.img-placeholder-text {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.modal-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsif */
+@media (max-width: 576px) {
+    .cms-filter-bar {
+        flex-direction: column;
+    }
+    .form-row-admin {
+        flex-direction: column;
+    }
+    .cms-modal-card {
+        width: 90%;
+    }
+}
