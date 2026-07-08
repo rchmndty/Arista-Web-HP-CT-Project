@@ -1,3 +1,4 @@
+assets/js/animations/scroll.js
 /**
  * Scroll Driven Dynamic Visual Architecture Handler
  */

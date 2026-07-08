@@ -1,3 +1,4 @@
+assets/js/animations/hover.js
 /**
  * ARISTA Animation Component - Premium Micro-interactions & Hover Effects
  */
@@ -24,37 +25,19 @@ function initServiceCardHover() {
                 iconWrapper.style.transform = 'scale(1.1) rotate(4deg)';
                 iconWrapper.style.backgroundColor = 'rgba(139, 92, 246, 0.15)';
                 iconWrapper.style.borderColor = 'rgba(139, 92, 246, 0.3)';
-                const svg = iconWrapper.querySelector('svg');
-                if (svg) svg.style.stroke = 'var(--accent)';
-            }
-
-            const link = card.querySelector('.service-link');
-            if (link) {
-                link.style.color = 'var(--accent)';
-                const svgLink = link.querySelector('svg');
-                if (svgLink) svgLink.style.transform = 'translateX(4px)';
             }
         });
-        
+
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
             card.style.boxShadow = 'none';
             card.style.borderColor = 'var(--border)';
-            
+
             const iconWrapper = card.querySelector('.service-icon-wrapper');
             if (iconWrapper) {
                 iconWrapper.style.transform = 'scale(1) rotate(0deg)';
-                iconWrapper.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
-                iconWrapper.style.borderColor = 'rgba(59, 130, 246, 0.2)';
-                const svg = iconWrapper.querySelector('svg');
-                if (svg) svg.style.stroke = 'var(--primary)';
-            }
-
-            const link = card.querySelector('.service-link');
-            if (link) {
-                link.style.color = 'var(--primary)';
-                const svgLink = link.querySelector('svg');
-                if (svgLink) svgLink.style.transform = 'translateX(0)';
+                iconWrapper.style.backgroundColor = 'var(--card)';
+                iconWrapper.style.borderColor = 'var(--border)';
             }
         });
     });
@@ -72,10 +55,10 @@ function initProductCardHover() {
             
             const xPercent = (x / rect.width) - 0.5;
             const yPercent = (y / rect.height) - 0.5;
-            
-            card.style.transform = `translateY(-8px) rotateX(${yPercent * -4}deg) rotateY(${xPercent * 4}deg)`;
-            card.style.boxShadow = `0 20px 40px rgba(59, 130, 246, 0.15)`;
-            card.style.borderColor = `rgba(139, 92, 246, 0.3)`;
+
+            card.style.transform = `translateY(-6px) rotateX(${yPercent * -4}deg) rotateY(${xPercent * 4}deg)`;
+            card.style.boxShadow = `0 16px 32px rgba(59, 130, 246, 0.1)`;
+            card.style.borderColor = 'rgba(34, 211, 230, 0.25)';
 
             const img = card.querySelector('.product-img');
             if (img) {
