@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Arista Digital Printing</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/typography.css">
+    <link rel="stylesheet" href="../assets/css/utilities.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin-login.css">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">ARISTA<span>.</span></div>
+                <p class="login-subtitle">Panel Kendali Manajemen Konten</p>
+            </div>
+            
+            <form id="adminLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Administrator</label>
+                    <input type="email" id="loginEmail" required placeholder="nama@aristaprint.com" autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Kata Sandi</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••" autocomplete="current-password">
+                </div>
+
+                <div id="loginErrorMessage" class="login-error-message text-danger hidden"></div>
+                
+                <button type="submit" id="btnAuthSubmit" class="btn-login">
+                    <span class="btn-text">Masuk ke Dashboard</span>
+                    <div class="btn-loader hidden"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/admin/session.js"></script>
+    <script src="../assets/js/admin/login.js"></script>
+</body>
+</html>
