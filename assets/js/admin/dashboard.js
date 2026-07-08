@@ -22,24 +22,41 @@ function initDashboardProfile() {
     });
 }
 
+// GANTI FUNCTION INITLOGOUTHANDLER DI DASHBOARD.JS
 function initLogoutHandler() {
     const logoutBtn = document.getElementById("btnAdminLogout");
     if (!logoutBtn) return;
 
-    logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Mencegah reload halaman bawaan
+        
         if (confirm("Apakah Anda yakin ingin keluar dari sesi administrator?")) {
+            // Pasang tanda penanda resmi ke localStorage agar session.js tidak mencegat rute
+            localStorage.setItem('logout_redirect_index', 'true');
+            
             firebase.auth().signOut()
                 .then(() => {
-                    // Pengalihan halaman dilakukan secara otomatis oleh session.js
-                    window.location.href = 'login.html';
+                    window.location.href = '../index.html';
                 })
                 .catch((error) => {
                     console.error("Gagal memutuskan sesi autentikasi server:", error);
-                    alert("Terjadi kesalahan sistem saat mencoba keluar.");
+                    window.location.href = '../index.html'; // Tetap arahkan ke depan jika gagal koneksi
                 });
         }
     });
 }
+
+
+
+function loadSystemCoreSummary() {
+    const versionDisplay = document.getElementById("coreVersion");
+    if (versionDisplay && typeof ARISTA_CONFIG !== 'undefined') {
+        versionDisplay.textContent = ARISTA_CONFIG.version || "1.0.0";
+    }
+
+    // Placeholder inisialisasi awal untuk pembacaan koleksi Firebase di modul SPRINT berikutnya
+    const prodCounter = 
+
 
 function loadSystemCoreSummary() {
     const versionDisplay = document.getElementById("coreVersion");

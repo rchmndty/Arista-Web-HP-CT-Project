@@ -26,13 +26,20 @@ function checkAdminSession(requireAuth = true) {
                 window.location.href = 'dashboard.html';
             }
         } else {
-            // Jika user belum login dan berada di halaman dashboard, lempar balik ke login
+            // Jika user belum login dan berada di halaman dashboard
             if (requireAuth && !isLoginPage) {
-                window.location.href = 'login.html';
+                // VALIDASI: Cek apakah user keluar secara resmi lewat klik tombol logout
+                if (localStorage.getItem('logout_redirect_index') === 'true') {
+                    localStorage.removeItem('logout_redirect_index'); // Bersihkan token penanda
+                    window.location.href = '../index.html'; // Lempar langsung ke index luar
+                } else {
+                    window.location.href = 'login.html'; // Jika menyusup langsung tanpa login, lempar ke login
+                }
             }
         }
     });
 }
+
 
 // Deteksi otomatis kebutuhan autentikasi berdasarkan lokasi file berkas halaman
 document.addEventListener("DOMContentLoaded", () => {

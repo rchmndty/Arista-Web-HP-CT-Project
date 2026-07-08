@@ -539,6 +539,95 @@
     <script src="assets/js/components/navbar.js"></script>
     <script src="assets/js/animations/reveal.js"></script>
     <script src="assets/js/animations/hover.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+    // Pastikan Firebase terinisialisasi menggunakan konfigurasi global Anda
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        firebase.initializeApp(ARISTA_CONFIG.firebaseConfig);
+    }
+
+    // Ambil data konten dinamis dari CMS SEBELUM animasi diaktifkan
+    firebase.database().ref("homepage_content").once("value").then((snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            // 1. Suntik Data Baru ke DOM Sisi Hero Section (Dengan Deteksi Kolom Kosong)
+            if (data.hero) {
+                const headEl = document.getElementById("hero-headline");
+                const subEl = document.querySelector(".hero-subheadline");
+                const ctaGroup = document.querySelector(".hero-cta-group");
+
+                if (headEl && data.hero.headline && data.hero.headline.trim() !== "") {
+                    headEl.textContent = data.hero.headline;
+                }
+                if (subEl && data.hero.subheadline && data.hero.subheadline.trim() !== "") {
+                    subEl.textContent = data.hero.subheadline;
+                }
+                
+                if (ctaGroup && ctaGroup.children.length >= 2) {
+                    // Tombol Utama (Katalog)
+                    if (data.hero.ctaPrimaryText && data.hero.ctaPrimaryText.trim() !== "") {
+                        ctaGroup.children[0].querySelector("span").textContent = data.hero.ctaPrimaryText;
+                    }
+                    if (data.hero.ctaPrimaryUrl && data.hero.ctaPrimaryUrl.trim() !== "") {
+                        ctaGroup.children[0].setAttribute("href", data.hero.ctaPrimaryUrl);
+                    }
+                    // Tombol Sekunder (Hubungi Kami)
+                    if (data.hero.ctaSecondaryText && data.hero.ctaSecondaryText.trim() !== "") {
+                        ctaGroup.children[1].textContent = data.hero.ctaSecondaryText;
+                    }
+                    if (data.hero.ctaSecondaryUrl && data.hero.ctaSecondaryUrl.trim() !== "") {
+                        ctaGroup.children[1].setAttribute("href", data.hero.ctaSecondaryUrl);
+                    }
+                }
+            }
+
+            // 2. Suntik Data Baru ke DOM Sisi About Section (Dengan Deteksi Kolom Kosong)
+            if (data.about) {
+                const aboutSec = document.getElementById("about");
+                if (aboutSec) {
+                    const badgeEl = aboutSec.querySelector(".badge-container .badge");
+                    const titleEl = aboutSec.querySelector(".section-title");
+                    const descEl = aboutSec.querySelector(".section-desc");
+                    const visionEl = aboutSec.querySelector(".vm-card:nth-child(1) p");
+                    const missionList = aboutSec.querySelector(".mission-list");
+
+                    if (badgeEl && data.about.badge && data.about.badge.trim() !== "") {
+                        badgeEl.textContent = data.about.badge;
+                    }
+                    if (titleEl && data.about.title && data.about.title.trim() !== "") {
+                        titleEl.textContent = data.about.title;
+                    }
+                    if (descEl && data.about.desc && data.about.desc.trim() !== "") {
+                        descEl.textContent = data.about.desc;
+                    }
+                    if (visionEl && data.about.vision && data.about.vision.trim() !== "") {
+                        visionEl.textContent = data.about.vision;
+                    }
+
+                    // Hanya menimpa list misi jika data di database ada isinya (tidak kosong)
+                    if (missionList && data.about.missions && data.about.missions.length > 0) {
+                        missionList.innerHTML = data.about.missions
+                            .filter(m => m.trim() !== "")
+                            .map(m => `<li>${m}</li>`)
+                            .join('');
+                    }
+                }
+            }
+        }
+    }).catch(err => {
+        console.warn("CMS Database offline, menggunakan template HTML default statis:", err);
+    }).finally(() => {
+        // TRICK UTAMA: Memicu pemecahan huruf (split-text) hero.js & trigger reveal JS
+        // HANYA setelah DOM selesai diperbarui teksnya agar animasi membaca susunan kata terbaru!
+        const eventEmit = new Event("CMSContentReady");
+        document.dispatchEvent(eventEmit);
+    });
+</script>
+
+
     
     <script src="assets/js/animations/hero.js"></script>
     <script src="assets/js/animations/parallax.js"></script>

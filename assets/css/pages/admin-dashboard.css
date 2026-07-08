@@ -186,13 +186,23 @@
 }
 
 /* System Responsive Screen View Adapters (Android Chrome Safe Viewports) */
+/* ==========================================================================
+   SYSTEM RESPONSIVE BREAKPOINTS (OPTIMIZED FOR ANDROID & MOBILE PHONES)
+   ========================================================================== */
+
+/* Tablet Viewport (Lebar di bawah 992px) */
 @media (max-width: 992px) {
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 }
 
+/* Mobile Standard Viewport (Lebar di bawah 768px) */
 @media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
     .admin-sidebar {
         width: 60px;
     }
@@ -209,13 +219,73 @@
         padding: var(--space-3);
         justify-content: center;
     }
-    .admin-main {
-        margin-left: 60px;
-        padding: var(--space-4);
+    /* Memperbaiki masalah ketidaksesuaian nama kelas HTML */
+    .admin-main, .dashboard-main {
+        margin-left: 60px !important;
+        padding: 1rem !important;
+        width: calc(100% - 60px);
     }
-    .main-header {
+    .main-header, .admin-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--space-4);
+        gap: 1rem;
+    }
+    .header-action {
+        width: 100%;
+    }
+    .header-action .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Android & Smartphone Portrait Viewport (Lebar di bawah 576px) */
+@media (max-width: 576px) {
+    .dashboard-wrapper {
+        flex-direction: column;
+    }
+    
+    /* Mengubah posisi sidebar menjadi bar navigasi atas agar layar utama lega */
+    .admin-sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .sidebar-brand {
+        display: block;
+        height: auto;
+        padding: 0;
+        border-bottom: none;
+        font-size: 1.25rem;
+    }
+    
+    .sidebar-menu {
+        flex-direction: row;
+        padding: 0;
+        gap: 0.25rem;
+    }
+    
+    .menu-item {
+        padding: 0.5rem;
+    }
+
+    .logout-btn, .btn-logout {
+        width: auto !important;
+        padding: 0.5rem;
+    }
+
+    /* Mengembalikan ruang konten ke lebar penuh 100% tanpa terpotong */
+    .admin-main, .dashboard-main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 1rem !important;
+        box-sizing: border-box;
     }
 }

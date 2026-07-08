@@ -1,3 +1,4 @@
+document.addEventListener("CMSContentReady", () => {
 document.addEventListener('DOMContentLoaded', () => {
     const headlineElement = document.getElementById('hero-headline');
     if (!headlineElement) return;
@@ -48,4 +49,5 @@ document.addEventListener('DOMContentLoaded', () => {
             ctaGroup.classList.add('reveal');
         }, charElements.length * 40 + 400);
     }
+});
 });
