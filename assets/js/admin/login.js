@@ -1,13 +1,12 @@
-
 /**
- * ARISTA Page Component - Admin Authentication Business Logic
+ * ARISTA Page Component - Admin Authentication Business Logic (Supabase Migrated)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("adminLoginForm");
     if (!loginForm) return;
 
-    loginForm.addEventListener("submit", (e) => {
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const email = document.getElementById("loginEmail").value.trim();
@@ -22,30 +21,32 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.disabled = true;
         submitBtn.classList.add("loading");
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => {
-                // Berhasil login, perpindahan halaman akan ditangani oleh pengamat di session.js
-                errorDisplay.classList.add("hidden");
-            })
-            .catch((error) => {
-                // Tangani kesalahan kode response dari Firebase Auth secara user-friendly
-                submitBtn.disabled = false;
-                submitBtn.classList.remove("loading");
-                errorDisplay.classList.remove("hidden");
-                
-                switch (error.code) {
-                    case 'auth/user-not-found':
-                        errorDisplay.textContent = "Akun administrator tidak terdaftar.";
-                        break;
-                    case 'auth/wrong-password':
-                        errorDisplay.textContent = "Kata sandi yang Anda masukkan salah.";
-                        break;
-                    case 'auth/invalid-email':
-                        errorDisplay.textContent = "Format alamat email tidak valid.";
-                        break;
-                    default:
-                        errorDisplay.textContent = "Gagal masuk: " + error.message;
-                }
+        try {
+            // Menggunakan Supabase Auth Client yang diinisialisasi global dari supabase.js
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
             });
+
+            if (error) throw error;
+
+            // Berhasil login, penanganan perpindahan halaman diatur oleh session.js
+            errorDisplay.classList.add("hidden");
+
+        } catch (error) {
+            // Kembalikan visual state tombol ke semula
+            submitBtn.disabled = false;
+            submitBtn.classList.remove("loading");
+            errorDisplay.classList.remove("hidden");
+
+            // Pemetaan pesan kesalahan Supabase Auth secara user-friendly
+            if (error.status === 400 || error.message.toLowerCase().includes("credentials")) {
+                errorDisplay.textContent = "Email atau kata sandi yang Anda masukkan salah.";
+            } else if (error.message.toLowerCase().includes("email not confirmed")) {
+                errorDisplay.textContent = "Alamat email administrator belum dikonfirmasi.";
+            } else {
+                errorDisplay.textContent = "Gagal masuk: " + error.message;
+            }
+        }
     });
 });

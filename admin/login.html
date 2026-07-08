@@ -43,11 +43,16 @@
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/admin/session.js"></script>
-    <script src="../assets/js/admin/login.js"></script>
+<!-- 1. Pemasangan Pustaka SDK Supabase Utama dari Internet (Versi Stabil UMD) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<!-- 2. Pemasangan Konfigurasi Kunci & Inisialisasi Konektor -->
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/supabase.js"></script>
+
+<!-- 3. Logika Utama Pengaman Sesi & Aksi Form Login -->
+<script src="../assets/js/admin/session.js"></script>
+<script src="../assets/js/admin/login.js"></script>
+
 </body>
 </html>

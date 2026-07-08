@@ -99,6 +99,11 @@
                 </div>
 
                 <div class="form-group-admin">
+                  <div class="form-group">
+    <label for="productImageFile">Unggah Foto Produk (Dari Galeri HP)</label>
+    <input type="file" id="productImageFile" accept="image/*" class="form-control-file">
+</div>
+
                     <label for="productImageUrl">URL Gambar Sampul Produk</label>
                     <input type="text" id="productImageUrl" required placeholder="Contoh: ../assets/images/catalog/banner.jpg">
                     <div class="image-preview-container-cms">
@@ -117,18 +122,13 @@
         </div>
     </div>
 
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/admin/session.js"></script>
-    <script src="../assets/js/admin/products.js"></script>
-      <!-- ... batas akhir form modal atau konten workspace ... -->
-    
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/admin/session.js"></script>
-    <!-- Tambahkan panggil script terpusat ini di atas script engine bawaan page -->
-    <script src="../assets/js/admin/sidebar.js"></script> 
-    <script src="../assets/js/admin/services.js"></script> <!-- Atau faq.js / testimonials.js -->
-</body>
-</html>
+<!-- Load SDK Supabase Utama dari CDN resmi -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- Urutan Script Arista Core -->
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/supabase.js"></script>
+<script src="../assets/js/admin/session.js"></script>
+<script src="../assets/js/admin/products.js"></script>
 </body>
 </html>
