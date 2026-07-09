@@ -11,20 +11,55 @@
     <link rel="stylesheet" href="../assets/css/utilities.css">
     <link rel="stylesheet" href="../assets/css/pages/admin-dashboard.css">
     <link rel="stylesheet" href="../assets/css/pages/admin-products.css">
+    <style>
+        /* Penyelaras style tambahan khusus manajemen kategori baru */
+        .category-management-list {
+            margin-top: 15px;
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 5px;
+        }
+        .category-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .category-item-row:last-child { border-bottom: none; }
+        .btn-delete-cat {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        .add-cat-inline-form {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="noise-overlay"></div>
 
     <div class="dashboard-wrapper">
-        
-
         <main class="dashboard-main">
             <header class="admin-header">
                 <div class="header-title-area">
                     <h1>Katalog Konten Produk</h1>
                     <p class="breadcrumb">Admin / Produk CMS (Local Mock)</p>
                 </div>
-                <div class="header-action">
+                <div class="header-action" style="display: flex; gap: 10px;">
+                    <!-- 🆕 Tombol Baru Manajemen Kategori -->
+                    <button class="btn" id="openCategoryModalBtn" style="background: rgba(255,255,255,0.1); color: #fff;">
+                        <span>📁 Kelola Kategori</span>
+                    </button>
                     <button class="btn btn-primary" id="openAddModalBtn">
                         <span>+ Tambah Produk Baru</span>
                     </button>
@@ -37,11 +72,9 @@
                         <input type="text" id="cmsProductSearch" placeholder="Cari nama atau deskripsi produk...">
                     </div>
                     <div class="category-select-wrapper">
+                        <!-- 🆕 Opsi ini diisi dinamis oleh JavaScript -->
                         <select id="cmsCategoryFilter">
                             <option value="all">Semua Kategori</option>
-                            <option value="digital-printing">Digital Printing</option>
-                            <option value="dokumen-jilid">Dokumen & Jilid</option>
-                            <option value="cetak-foto">Cetak Foto</option>
                         </select>
                     </div>
                 </div>
@@ -53,6 +86,7 @@
         </main>
     </div>
 
+    <!-- 1. POPUP MODAL: PRODUK (Form Serba Opsional) -->
     <div class="cms-modal-overlay" id="productModal">
         <div class="cms-modal-card">
             <div class="modal-card-header">
@@ -63,18 +97,15 @@
                 <input type="hidden" id="productId">
                 
                 <div class="form-group-admin">
-                    <label for="productTitle">Nama Produk</label>
-                    <input type="text" id="productTitle" required placeholder="Contoh: Banner Spanduk Flexi High-Res">
+                    <label for="productTitle">Nama Produk (Opsional)</label>
+                    <input type="text" id="productTitle" placeholder="Contoh: Banner Spanduk Flexi High-Res">
                 </div>
 
                 <div class="form-row-admin">
                     <div class="form-group-admin">
                         <label for="productCategory">Kategori</label>
-                        <select id="productCategory" required>
-                            <option value="digital-printing">Digital Printing</option>
-                            <option value="dokumen-jilid">Dokumen & Jilid</option>
-                            <option value="cetak-foto">Cetak Foto</option>
-                        </select>
+                        <!-- 🆕 Opsi ini diisi dinamis oleh JavaScript -->
+                        <select id="productCategory" required></select>
                     </div>
                     <div class="form-group-admin">
                         <label for="productBadge">Badge Status (Opsional)</label>
@@ -84,28 +115,28 @@
 
                 <div class="form-row-admin">
                     <div class="form-group-admin">
-                        <label for="productPrice">Harga Display</label>
-                        <input type="text" id="productPrice" required placeholder="Contoh: Rp 25.000">
+                        <label for="productPrice">Harga Display (Opsional)</label>
+                        <input type="text" id="productPrice" placeholder="Contoh: Rp 25.000">
                     </div>
                     <div class="form-group-admin">
-                        <label for="productUnit">Satuan / Unit</label>
-                        <input type="text" id="productUnit" required placeholder="Contoh: /m², /rim, /lembar">
+                        <label for="productUnit">Satuan / Unit (Opsional)</label>
+                        <input type="text" id="productUnit" placeholder="Contoh: /m², /rim, /lembar">
                     </div>
                 </div>
 
                 <div class="form-group-admin">
-                    <label for="productDesc">Deskripsi Detil Produk</label>
-                    <textarea id="productDesc" rows="3" required placeholder="Tulis spesifikasi bahan, ukuran standar cetak, dll..."></textarea>
+                    <label for="productDesc">Deskripsi Detil Produk (Opsional)</label>
+                    <textarea id="productDesc" rows="3" placeholder="Tulis spesifikasi bahan, ukuran standar cetak, dll..."></textarea>
                 </div>
 
                 <div class="form-group-admin">
-                  <div class="form-group">
-    <label for="productImageFile">Unggah Foto Produk (Dari Galeri HP)</label>
-    <input type="file" id="productImageFile" accept="image/*" class="form-control-file">
-</div>
+                    <div class="form-group">
+                        <label for="productImageFile">Unggah Foto Produk (Dari Galeri HP - Opsional)</label>
+                        <input type="file" id="productImageFile" accept="image/*" class="form-control-file">
+                    </div>
 
-                    <label for="productImageUrl">URL Gambar Sampul Produk</label>
-                    <input type="text" id="productImageUrl" required placeholder="Contoh: ../assets/images/catalog/banner.jpg">
+                    <label for="productImageUrl">URL Gambar Sampul Produk (Opsional)</label>
+                    <input type="text" id="productImageUrl" placeholder="Contoh: ../assets/images/catalog/banner.jpg">
                     <div class="image-preview-container-cms">
                         <p class="img-placeholder-text">Pratinjau Gambar Belum Tersedia</p>
                         <img src="" id="imgCmsPreview" alt="Preview" style="display: none;">
@@ -122,25 +153,34 @@
         </div>
     </div>
 
+    <!-- 2. 🆕 POPUP MODAL BARU: Manajemen Kategori (Tambah & Hapus) -->
+    <div class="cms-modal-overlay" id="categoryModal">
+        <div class="cms-modal-card" style="max-width: 450px;">
+            <div class="modal-card-header">
+                <h3>Kelola Daftar Kategori</h3>
+                <button class="close-modal-btn" id="closeCatModalBtn">&times;</button>
+            </div>
+            <div class="modal-card-body">
+                <div class="add-cat-inline-form">
+                    <input type="text" id="newCategoryName" placeholder="Nama Kategori Baru..." style="flex: 1; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.2); color:#fff; border: 1px solid rgba(255,255,255,0.1);">
+                    <button class="btn btn-primary" id="saveCategoryBtn" style="padding: 8px 15px;">Tambah</button>
+                </div>
+                <label>Daftar Kategori Saat Ini:</label>
+                <div class="category-management-list" id="categoryManagementList">
+                    <!-- Diisi otomatis via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- 1. CDN Supabase SDK JS (Wajib Paling Atas) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- 2. Core Configuration App -->
-<script src="../assets/js/config.js"></script>
-
-<!-- 3. Supabase Client Initializer -->
-<script src="../assets/js/supabase.js"></script>
-
-<!-- 4. Session Guard (Untuk mengamankan route sebelum UI dirender) -->
-<script src="../assets/js/admin/session.js"></script>
-
-<!-- 5. Main Framework & Page-Specific Logic (Contoh: login.js atau dashboard.js) -->
-<script src="../assets/js/main.js"></script>
-<script src="../assets/js/admin/sidebar.js"></script> 
-  <!-- 4. BARU MASUKKAN ENGINE HELPER 17.3 INI -->
-<script src="../assets/js/admin/crud-helper.js"></script>
-  <script src="../assets/js/admin/products.js"></script>
-
+    <!-- CDN & Supabase Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/supabase.js"></script>
+    <script src="../assets/js/admin/session.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/admin/sidebar.js"></script> 
+    <script src="../assets/js/admin/crud-helper.js"></script>
+    <script src="../assets/js/admin/products.js"></script>
 </body>
 </html>

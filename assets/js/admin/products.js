@@ -1,5 +1,6 @@
 /**
  * ARISTA Management Panel - Product Catalog CMS (Sprint 17.4 - CRUD Live Engine)
+ * MODIFIED: Semua Form Opsional (Kecuali Kategori), Tampilan Kosong Tanpa Fallback Huruf, + Fitur CRUD Kategori.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,13 +14,13 @@ function initProductCMS() {
     const filterSelect = document.getElementById("cmsCategoryFilter"); 
     const openAddModalBtn = document.getElementById("openAddModalBtn"); 
     
-    // Elemen DOM Pop-Up Modal & Form
+    // Elemen DOM Pop-Up Modal & Form Produk
     const productModal = document.getElementById("productModal"); 
     const productForm = document.getElementById("productForm"); 
     const closeModalBtn = document.getElementById("closeModalBtn"); 
     const cancelModalBtn = document.getElementById("cancelModalBtn"); 
     
-    // Elemen DOM Input Field Form
+    // Elemen DOM Input Field Form Produk
     const modalTitle = document.getElementById("modalTitle"); 
     const productIdInput = document.getElementById("productId"); 
     const productTitleInput = document.getElementById("productTitle"); 
@@ -31,13 +32,96 @@ function initProductCMS() {
     const productImageUrlInput = document.getElementById("productImageUrl"); 
     const imgCmsPreview = document.getElementById("imgCmsPreview"); 
     const imgPlaceholderText = document.querySelector(".img-placeholder-text"); 
-
-    // Elemen Input File Unggahan Foto Galeri HP
     const productImageFileInput = document.getElementById("productImageFile");
+
+    // 🆕 Elemen DOM Pop-Up Modal & Form Manajemen Kategori
+    const categoryModal = document.getElementById("categoryModal");
+    const openCategoryModalBtn = document.getElementById("openCategoryModalBtn");
+    const closeCatModalBtn = document.getElementById("closeCatModalBtn");
+    const newCategoryNameInput = document.getElementById("newCategoryName");
+    const saveCategoryBtn = document.getElementById("saveCategoryBtn");
+    const categoryManagementList = document.getElementById("categoryManagementList");
 
     let localProductsCache = []; 
     let isEditMode = false; 
     let fileToUpload = null; 
+
+    // 🆕 State Management Kategori (Menggunakan LocalStorage Terproteksi)
+    let dynamicCategories = JSON.parse(localStorage.getItem("arista_categories")) || [
+        { slug: "digital-printing", name: "Digital Printing" },
+        { slug: "dokumen-jilid", name: "Dokumen & Jilid" },
+        { slug: "cetak-foto", name: "Cetak Foto" }
+    ];
+
+    // =========================================================================
+    // 🆕 ENGINE MANAJEMEN KATEGORI (Dinamis Dropdown & List)
+    // =========================================================================
+    function syncCategoriesToUI() {
+        localStorage.setItem("arista_categories", JSON.stringify(dynamicCategories));
+
+        // Update Dropdown Filter Halaman Utama
+        if (filterSelect) {
+            const currentVal = filterSelect.value;
+            filterSelect.innerHTML = `<option value="all">Semua Kategori</option>`;
+            dynamicCategories.forEach(cat => {
+                filterSelect.innerHTML += `<option value="${cat.slug}">${cat.name}</option>`;
+            });
+            filterSelect.value = currentVal;
+        }
+
+        // Update Dropdown Pilihan Kategori di Form Popup Produk
+        if (productCategorySelect) {
+            const currentVal = productCategorySelect.value;
+            productCategorySelect.innerHTML = ``;
+            dynamicCategories.forEach(cat => {
+                productCategorySelect.innerHTML += `<option value="${cat.slug}">${cat.name}</option>`;
+            });
+            if (currentVal) productCategorySelect.value = currentVal;
+        }
+
+        // Update List di dalam Modal Manajemen Kategori
+        if (categoryManagementList) {
+            categoryManagementList.innerHTML = "";
+            dynamicCategories.forEach(cat => {
+                const row = document.createElement("div");
+                row.className = "category-item-row";
+                row.innerHTML = `
+                    <span>${cat.name} <small style="color:rgba(255,255,255,0.4);">(${cat.slug})</small></span>
+                    <button class="btn-delete-cat" onclick="deleteCategoryEngine('${cat.slug}')">Hapus</button>
+                `;
+                categoryManagementList.appendChild(row);
+            });
+        }
+    }
+
+    // Aksi Tambah Kategori Baru
+    if (saveCategoryBtn) {
+        saveCategoryBtn.addEventListener("click", () => {
+            const name = newCategoryNameInput.value.trim();
+            if (!name) return alert("Nama kategori tidak boleh kosong!");
+            
+            const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+            if (dynamicCategories.some(c => c.slug === slug)) return alert("Kategori ini sudah terdaftar!");
+
+            dynamicCategories.push({ slug, name });
+            newCategoryNameInput.value = "";
+            syncCategoriesToUI();
+            renderProductsGrid();
+        });
+    }
+
+    // Aksi Hapus Kategori Eksis
+    window.deleteCategoryEngine = function(slug) {
+        if (confirm("Apakah Anda yakin ingin menghapus kategori ini? Produk dengan kategori terkait tidak akan terhapus.")) {
+            dynamicCategories = dynamicCategories.filter(c => c.slug !== slug);
+            syncCategoriesToUI();
+            renderProductsGrid();
+        }
+    };
+
+    // Handler Buka Tutup Modal Kategori
+    if (openCategoryModalBtn) openCategoryModalBtn.addEventListener("click", () => categoryModal.classList.add("active"));
+    if (closeCatModalBtn) closeCatModalBtn.addEventListener("click", () => categoryModal.classList.remove("active"));
 
     // =========================================================================
     // 1. Ambil Data (READ) dari Cloud Database via Helper Generic
@@ -46,9 +130,7 @@ function initProductCMS() {
         if (productsGrid) {
             productsGrid.innerHTML = `<div class="loading-state-cms">Memuat data dari cloud database...</div>`;
         }
-        
         try {
-            // Memanggil Generic CRUD untuk menarik seluruh data dari tabel 'products'
             localProductsCache = await window.AristaCMS.CRUD.read('products', 'created_at', false);
             renderProductsGrid();
         } catch (error) {
@@ -83,15 +165,22 @@ function initProductCMS() {
         filtered.forEach((product) => { 
             const card = document.createElement("div"); 
             card.className = "cms-product-card-item"; 
+            
+            // Pengondisian harga & unit agar tidak memunculkan teks jika sengaja dikosongkan
+            const priceText = product.price ? product.price : "";
+            const unitText = product.unit ? `<small>${product.unit}</small>` : "";
+            const finalPriceDisplay = (priceText || unitText) ? `${priceText}${unitText}` : "";
+
             card.innerHTML = `
                 <div class="cms-card-img-frame">
-                    <img src="${product.image || '../assets/images/placeholder.jpg'}" alt="${product.title}" onerror="this.src='../assets/images/placeholder.jpg'">
+                    <img src="${product.image || '../assets/images/placeholder.jpg'}" alt="${product.title || ''}" onerror="this.src='../assets/images/placeholder.jpg'">
                     ${product.badge ? `<span class="cms-badge-tag">${product.badge}</span>` : ''}
                 </div>
                 <div class="cms-card-details">
                     <span class="cms-card-category-slug">${formatCategoryName(product.category)}</span>
-                    <h4>${product.title}</h4>
-                    <p class="cms-card-price-display">${product.price}<small>${product.unit}</small></p>
+                    <!-- 🆕 Diubah total: Tanpa fallback teks, murni kosong jika data tidak diisi -->
+                    <h4>${product.title || ''}</h4>
+                    <p class="cms-card-price-display">${finalPriceDisplay}</p>
                     <div class="cms-card-actions-row">
                         <button class="btn-cms-action btn-edit" onclick="actionEditProduct('${product.id}')">Ubah</button>
                         <button class="btn-cms-action btn-delete" onclick="actionDeleteProduct('${product.id}')">Hapus</button>
@@ -114,9 +203,6 @@ function initProductCMS() {
         productForm.reset(); 
         productIdInput.value = ""; 
         fileToUpload = null;
-        
-        // Kembalikan status required URL ke setelan default HTML
-        if (productImageUrlInput) productImageUrlInput.setAttribute("required", "required");
 
         if (imgCmsPreview) imgCmsPreview.style.display = "none"; 
         if (imgPlaceholderText) imgPlaceholderText.style.display = "block"; 
@@ -127,12 +213,12 @@ function initProductCMS() {
             const currentItem = localProductsCache.find(p => p.id === productId); 
             if (currentItem) { 
                 if (productIdInput) productIdInput.value = currentItem.id; 
-                if (productTitleInput) productTitleInput.value = currentItem.title; 
+                if (productTitleInput) productTitleInput.value = currentItem.title || ""; 
                 if (productCategorySelect) productCategorySelect.value = currentItem.category; 
                 if (productBadgeInput) productBadgeInput.value = currentItem.badge || ""; 
-                if (productPriceInput) productPriceInput.value = currentItem.price; 
-                if (productUnitInput) productUnitInput.value = currentItem.unit; 
-                if (productDescInput) productDescInput.value = currentItem.desc; 
+                if (productPriceInput) productPriceInput.value = currentItem.price || ""; 
+                if (productUnitInput) productUnitInput.value = currentItem.unit || ""; 
+                if (productDescInput) productDescInput.value = currentItem.desc || ""; 
                 if (productImageUrlInput) productImageUrlInput.value = currentItem.image || ""; 
                 
                 if (currentItem.image && imgCmsPreview && imgPlaceholderText) { 
@@ -152,16 +238,11 @@ function initProductCMS() {
         if (productModal) productModal.classList.remove("active"); 
     }
 
-    // Mengambil preview gambar jika admin memilih file dari penyimpanan lokal HP
     if (productImageFileInput) {
         productImageFileInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
             if (file) {
                 fileToUpload = file;
-                
-                // Matikan required pada URL Input karena admin sudah mengunggah file fisik
-                if (productImageUrlInput) productImageUrlInput.removeAttribute("required");
-
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     if (imgCmsPreview && imgPlaceholderText) {
@@ -175,13 +256,12 @@ function initProductCMS() {
         });
     }
 
-    // Mengambil preview gambar jika admin mengetikkan tautan URL eksternal
     if (productImageUrlInput) {
         productImageUrlInput.addEventListener("input", (e) => { 
             const val = e.target.value.trim(); 
             if (val) {
                 fileToUpload = null; 
-                if (productImageFileInput) productImageFileInput.value = ""; // Reset input file
+                if (productImageFileInput) productImageFileInput.value = ""; 
                 if (imgCmsPreview && imgPlaceholderText) {
                     imgCmsPreview.src = val; 
                     imgCmsPreview.style.display = "block"; 
@@ -192,8 +272,6 @@ function initProductCMS() {
                     imgCmsPreview.style.display = "none"; 
                     imgPlaceholderText.style.display = "block"; 
                 }
-                // Jika kosong dan tidak ada file, pasang kembali aturan wajib isi
-                if (!fileToUpload) productImageUrlInput.setAttribute("required", "required");
             }
         });
     }
@@ -209,13 +287,13 @@ function initProductCMS() {
         productForm.addEventListener("submit", async (e) => { 
             e.preventDefault(); 
 
-            // -- Sub-Modul Validasi Form (Engine 17.3) --
+            // 🆕 Semua aturan diubah menjadi `required: false`, menyisakan `category` yang murni terkunci wajib isi
             const validationRules = {
-                title: { required: true, minLength: 4, label: "Nama Produk" },
+                title: { required: false, label: "Nama Produk" },
                 category: { required: true, label: "Kategori" },
-                price: { required: true, label: "Harga Display" },
-                unit: { required: true, label: "Satuan / Unit" },
-                desc: { required: true, minLength: 10, label: "Deskripsi Detil Produk" }
+                price: { required: false, label: "Harga Display" },
+                unit: { required: false, label: "Satuan / Unit" },
+                desc: { required: false, label: "Deskripsi Detil Produk" }
             };
 
             const dataToValidate = {
@@ -232,7 +310,6 @@ function initProductCMS() {
                 return;
             }
 
-            // Visual State: Kunci tombol submit untuk menghindari double-click data ganda
             const submitBtn = document.getElementById("saveProductBtn");
             if (submitBtn) {
                 submitBtn.disabled = true;
@@ -243,32 +320,30 @@ function initProductCMS() {
             try {
                 let finalImageUrl = productImageUrlInput.value.trim(); 
 
-                // -- Sub-Modul Upload File ke Storage Bucket Supabase (Engine 17.3) --
                 if (fileToUpload) {
                     finalImageUrl = await window.AristaCMS.CRUD.uploadFile('products', 'product-catalog', fileToUpload);
                 }
 
-                // Menyusun struktur data payload objek baris database
                 const idProduct = isEditMode ? productIdInput.value : "prod-" + Date.now(); 
+                
+                // 🆕 Data dikirim apa adanya sesuai input formulir tanpa penimpaan teks default
                 const payload = {
                     id: idProduct,
-                    title: productTitleInput.value.trim(), 
+                    title: productTitleInput.value.trim() || "", 
                     category: productCategorySelect.value, 
                     badge: productBadgeInput.value.trim() || null, 
-                    price: productPriceInput.value.trim(), 
-                    unit: productUnitInput.value.trim(), 
-                    desc: productDescInput.value.trim(), 
-                    image: finalImageUrl || null
+                    price: productPriceInput.value.trim() || "", 
+                    unit: productUnitInput.value.trim() || "", 
+                    desc: productDescInput.value.trim() || "", 
+                    image: finalImageUrl || ""
                 };
 
-                // -- Sub-Modul Database Persistence --
                 if (isEditMode) {
                     await window.AristaCMS.CRUD.update('products', idProduct, payload);
                 } else {
                     await window.AristaCMS.CRUD.create('products', payload);
                 }
 
-                // Muat ulang daftar produk di UI dan tutup modal popup
                 await loadSupabaseProducts();
                 closeModal(); 
             } catch (error) {
@@ -284,7 +359,7 @@ function initProductCMS() {
     }
 
     // =========================================================================
-    // 5. Integrasi Tombol Manipulasi Data Global (Akses Via Atribut HTML)
+    // 5. Integrasi Tombol Manipulasi Data Global
     // =========================================================================
     window.actionEditProduct = function(id) { 
         openModal("edit", id); 
@@ -293,7 +368,6 @@ function initProductCMS() {
     window.actionDeleteProduct = async function(id) { 
         if (confirm("Apakah Anda yakin ingin menghapus item produk ini secara permanen dari Cloud Database?")) { 
             try {
-                // Mengeksekusi penghapusan baris data di cloud via Helper Generic
                 await window.AristaCMS.CRUD.delete('products', id);
                 await loadSupabaseProducts();
             } catch (error) {
@@ -303,14 +377,11 @@ function initProductCMS() {
     };
 
     function formatCategoryName(slug) { 
-        const categories = { 
-            "digital-printing": "Digital Printing", 
-            "dokumen-jilid": "Dokumen & Jilid", 
-            "cetak-foto": "Cetak Foto" 
-        };
-        return categories[slug] || slug; 
+        const found = dynamicCategories.find(c => c.slug === slug);
+        return found ? found.name : slug; 
     }
 
-    // Menjalankan penarikan data cloud database pertama kali saat halaman siap
+    // Inisialisasi Pertama
+    syncCategoriesToUI();
     loadSupabaseProducts();
 }
