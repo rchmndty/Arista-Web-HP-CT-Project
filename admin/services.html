@@ -64,21 +64,24 @@
         </div>
     </div>
 
-    <!-- 1. Pemasangan Pustaka SDK Supabase Utama (WAJIB ADA) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
-  <script src="../assets/js/admin/session.js"></script>
+<!-- 1. CDN Supabase SDK JS (Wajib Paling Atas) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-<!-- 2. Pemasangan Konfigurasi & Inisialisasi Konektor -->
+<!-- 2. Core Configuration App -->
 <script src="../assets/js/config.js"></script>
+
+<!-- 3. Supabase Client Initializer -->
 <script src="../assets/js/supabase.js"></script>
 
-<!-- 3. Mesin Pengaman Sesi (WAJIB DIBAWAH SDK SUPABASE) -->
+<!-- 4. Session Guard (Untuk mengamankan route sebelum UI dirender) -->
+<script src="../assets/js/admin/session.js"></script>
 
-<!-- 4. Script Khusus Halaman (Ganti dengan file JS halaman terkait) -->
+<!-- 5. Main Framework & Page-Specific Logic (Contoh: login.js atau dashboard.js) -->
+<script src="../assets/js/main.js"></script>
 <script src="../assets/js/admin/sidebar.js"></script> 
-<script src="../assets/js/admin/services.js"></script> <!-- Sesuaikan dengan nama halaman -->
+  <script src="../assets/js/admin/services.js"></script>
+
 
 </body>
 </html>

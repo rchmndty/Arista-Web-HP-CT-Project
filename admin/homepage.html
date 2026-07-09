@@ -144,22 +144,23 @@
         </main>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    
-    <script src="../assets/js/config.js"></script>
-     <script src="../assets/js/admin/session.js"></script>
-    <script src="../assets/js/admin/homepage.js"></script>
-      <!-- ... batas akhir form modal atau konten workspace ... -->
-    
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/admin/session.js"></script>
-    <!-- Tambahkan panggil script terpusat ini di atas script engine bawaan page -->
-    <script src="../assets/js/admin/sidebar.js"></script> 
-    <script src="../assets/js/admin/services.js"></script> <!-- Atau faq.js / testimonials.js -->
-</body>
-</html>
+
+<!-- 1. CDN Supabase SDK JS (Wajib Paling Atas) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- 2. Core Configuration App -->
+<script src="../assets/js/config.js"></script>
+
+<!-- 3. Supabase Client Initializer -->
+<script src="../assets/js/supabase.js"></script>
+
+<!-- 4. Session Guard (Untuk mengamankan route sebelum UI dirender) -->
+<script src="../assets/js/admin/session.js"></script>
+
+<!-- 5. Main Framework & Page-Specific Logic (Contoh: login.js atau dashboard.js) -->
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin/sidebar.js"></script> 
+  <script src="../assets/js/admin/homepage.js"></script>
 
 </body>
 </html>
