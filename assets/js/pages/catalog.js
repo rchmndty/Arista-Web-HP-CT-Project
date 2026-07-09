@@ -99,11 +99,16 @@ class CatalogPageManager {
         const endIndex = startIndex + this.itemsPerPage;
         const pageItems = this.filteredProducts.slice(startIndex, endIndex);
 
-        pageItems.forEach(product => {
+                pageItems.forEach(product => {
             const card = document.createElement("div");
             card.className = "product-card";
             
-            // PERUBAHAN UTAMA: Menggunakan properti database asli (product.image_url)
+            // 🆕 Integrasi Engine CTA WhatsApp dari contact.js (Otomatis Deteksi Produk)
+            const whatsappAdmin = "6285243000154"; // Nomor resmi dari contact.js
+            const templatePesan = `Halo Admin Arista.\n\nSaya ingin memesan produk dari Katalog:\n- Nama Produk: ${product.title}\n- Kategori: ${this.formatCategoryName(product.category)}\n- Harga: ${product.price} / ${product.unit}\n\nMohon informasi langkah pemesanan selanjutnya. Terima kasih!`;
+            const textTerencode = encodeURIComponent(templatePesan);
+            const linkWhatsApp = `https://wa.me/${whatsappAdmin}?text=${textTerencode}`;
+            
             card.innerHTML = `
                 <div class="product-image-wrapper">
                     ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
@@ -115,8 +120,9 @@ class CatalogPageManager {
                     <p class="product-desc">${product.desc}</p>
                     <div class="product-footer">
                         <span class="product-price">${product.price}<small>${product.unit}</small></span>
-                        <a href="product.html?id=${product.id}" class="btn-product-cta" aria-label="Detail ${product.title}">
-                            <span>Detail</span>
+                        <!-- Tombol diubah dari Detail ke Pesan langsung ke WA Admin -->
+                        <a href="${linkWhatsApp}" target="_blank" class="btn-product-cta" aria-label="Pesan ${product.title}">
+                            <span>Pesan</span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
                             </svg>
@@ -126,6 +132,7 @@ class CatalogPageManager {
             `;
             this.gridElement.appendChild(card);
         });
+
 
         // ==========================================================================
         // TRICK AMAN UNTUK ANIMASI KARTU DINAMIS (GSAP / HOVER / REVEAL RE-TRIGGER)

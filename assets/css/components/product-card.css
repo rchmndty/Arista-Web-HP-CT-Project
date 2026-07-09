@@ -1,144 +1,165 @@
 /* ==========================================================================
-   ARISTA COMPONENT - PRODUCT CARD & GRID (Tahap 8)
+   ARISTA COMPONENT - PRODUCT CARD & GRID (Tahap 8 - Flexible & Anti-Overflow Updated)
    ========================================================================== */
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
-    margin-top: var(--space-6);
+    grid-template-columns: repeat(3, 1fr); /* Bawaan asli[span_4](start_span)[span_4](end_span) */
+    gap: var(--space-4); /* Bawaan asli[span_5](start_span)[span_5](end_span) */
+    margin-top: var(--space-6); /* Bawaan asli[span_6](start_span)[span_6](end_span) */
 }
 
 .product-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--card); /* Bawaan asli[span_7](start_span)[span_7](end_span) */
+    border: 1px solid var(--border); /* Bawaan asli[span_8](start_span)[span_8](end_span) */
+    border-radius: var(--radius-xl); /* Bawaan asli[span_9](start_span)[span_9](end_span) */
+    overflow: hidden; /* Bawaan asli[span_10](start_span)[span_10](end_span) */
+    backdrop-filter: blur(12px); /* Bawaan asli[span_11](start_span)[span_11](end_span) */
+    -webkit-backdrop-filter: blur(12px); /* Bawaan asli[span_12](start_span)[span_12](end_span) */
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
                 border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Bawaan asli[span_13](start_span)[span_13](end_span) */
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100%; /* Memastikan semua kartu tingginya sama rata dalam satu baris[span_14](start_span)[span_14](end_span) */
 }
 
 .product-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.2);
+    position: relative; /* Bawaan asli[span_15](start_span)[span_15](end_span) */
+    width: 100%; /* Bawaan asli[span_16](start_span)[span_16](end_span) */
+    height: 220px; /* Bawaan asli[span_17](start_span)[span_17](end_span) */
+    overflow: hidden; /* Bawaan asli[span_18](start_span)[span_18](end_span) */
+    background: rgba(0, 0, 0, 0.2); /* Bawaan asli[span_19](start_span)[span_19](end_span) */
 }
 
 .product-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%; /* Bawaan asli[span_20](start_span)[span_20](end_span) */
+    height: 100%; /* Bawaan asli[span_21](start_span)[span_21](end_span) */
+    object-fit: cover; /* Bawaan asli[span_22](start_span)[span_22](end_span) */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Bawaan asli[span_23](start_span)[span_23](end_span) */
 }
 
 .product-badge {
-    position: absolute;
-    top: var(--space-3);
-    left: var(--space-3);
-    z-index: 2;
-    padding: 0.35rem 0.75rem;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-full);
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    color: var(--text-light, #F8FAFC);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    position: absolute; /* Bawaan asli[span_24](start_span)[span_24](end_span) */
+    top: var(--space-3); /* Bawaan asli[span_25](start_span)[span_25](end_span) */
+    left: var(--space-3); /* Bawaan asli[span_26](start_span)[span_26](end_span) */
+    z-index: 2; /* Bawaan asli[span_27](start_span)[span_27](end_span) */
+    padding: 0.35rem 0.75rem; /* Bawaan asli[span_28](start_span)[span_28](end_span) */
+    background: rgba(15, 23, 42, 0.6); /* Bawaan asli[span_29](start_span)[span_29](end_span) */
+    border: 1px solid var(--border); /* Bawaan asli[span_30](start_span)[span_30](end_span) */
+    border-radius: var(--radius-full); /* Bawaan asli[span_31](start_span)[span_31](end_span) */
+    font-size: var(--fs-xs); /* Bawaan asli[span_32](start_span)[span_32](end_span) */
+    font-weight: 600; /* Bawaan asli[span_33](start_span)[span_33](end_span) */
+    color: var(--text-light, #F8FAFC); /* Bawaan asli[span_34](start_span)[span_34](end_span) */
+    backdrop-filter: blur(8px); /* Bawaan asli[span_35](start_span)[span_35](end_span) */
+    -webkit-backdrop-filter: blur(8px); /* Bawaan asli[span_36](start_span)[span_36](end_span) */
 }
 
 .product-info {
-    padding: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    padding: var(--space-4); /* Bawaan asli[span_37](start_span)[span_37](end_span) */
+    display: flex; /* Bawaan asli[span_38](start_span)[span_38](end_span) */
+    flex-direction: column; /* Bawaan asli[span_39](start_span)[span_39](end_span) */
+    flex-grow: 1; /* Bawaan asli[span_40](start_span)[span_40](end_span) */
+    min-width: 0; /* 🆕 Mencegah flex-item meluap melampaui batas kontainer induknya */
 }
 
 .product-category {
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
+    font-size: var(--fs-xs); /* Bawaan asli[span_41](start_span)[span_41](end_span) */
+    font-weight: 600; /* Bawaan asli[span_42](start_span)[span_42](end_span) */
+    text-transform: uppercase; /* Bawaan asli[span_43](start_span)[span_43](end_span) */
+    letter-spacing: 0.05em; /* Bawaan asli[span_44](start_span)[span_44](end_span) */
+    color: var(--accent); /* Bawaan asli[span_45](start_span)[span_45](end_span) */
+    margin-bottom: 0.5rem; /* Bawaan asli[span_46](start_span)[span_46](end_span) */
 }
 
 .product-title {
-    font-size: var(--fs-lg);
-    font-weight: 600;
-    color: var(--text, #FFFFFF);
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
+    font-size: var(--fs-lg); /* Bawaan asli[span_47](start_span)[span_47](end_span) */
+    font-weight: 600; /* Bawaan asli[span_48](start_span)[span_48](end_span) */
+    color: var(--text, #FFFFFF); /* Bawaan asli[span_49](start_span)[span_49](end_span) */
+    margin-bottom: 0.5rem; /* Bawaan asli[span_50](start_span)[span_50](end_span) */
+    line-height: 1.4; /* Bawaan asli[span_51](start_span)[span_51](end_span) */
+    
+    /* 🆕 Katup Pengaman Judul */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .product-desc {
-    font-size: var(--fs-sm);
-    color: var(--text-secondary, #94A3B8);
-    line-height: 1.6;
-    margin-bottom: var(--space-4);
-    flex-grow: 1;
+    font-size: var(--fs-sm); /* Bawaan asli[span_52](start_span)[span_52](end_span) */
+    color: var(--text-secondary, #94A3B8); /* Bawaan asli[span_53](start_span)[span_53](end_span) */
+    line-height: 1.6; /* Bawaan asli[span_54](start_span)[span_54](end_span) */
+    margin-bottom: var(--space-4); /* Bawaan asli[span_55](start_span)[span_55](end_span) */
+    flex-grow: 1; /* Bawaan asli[span_56](start_span)[span_56](end_span) */
+    
+    /* 🆕 Katup Pengaman Deskripsi Panjang */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word; /* Memaksa kata 'barbar' tanpa spasi patah ke bawah */
 }
 
 .product-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: var(--space-3);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: auto;
+    display: flex; /* Bawaan asli[span_57](start_span)[span_57](end_span) */
+    align-items: center; /* Bawaan asli[span_58](start_span)[span_58](end_span) */
+    justify-content: space-between; /* Bawaan asli[span_59](start_span)[span_59](end_span) */
+    padding-top: var(--space-3); /* Bawaan asli[span_60](start_span)[span_60](end_span) */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Bawaan asli[span_61](start_span)[span_61](end_span) */
+    margin-top: auto; /* Bawaan asli[span_62](start_span)[span_62](end_span) */
+    
+    /* 🆕 Responsif Footer */
+    flex-wrap: wrap; /* Jika harga & tombol terlalu lebar di HP kecil, otomatis turun baris rapi */
+    gap: var(--space-2, 8px); 
 }
 
 .product-price {
-    font-size: var(--fs-base);
-    font-weight: 700;
-    color: var(--highlight, #22D3EE);
-    transition: color 0.3s ease;
+    font-size: var(--fs-base); /* Bawaan asli[span_63](start_span)[span_63](end_span) */
+    font-weight: 700; /* Bawaan asli[span_64](start_span)[span_64](end_span) */
+    color: var(--highlight, #22D3EE); /* Bawaan asli[span_65](start_span)[span_65](end_span) */
+    transition: color 0.3s ease; /* Bawaan asli[span_66](start_span)[span_66](end_span) */
 }
 
 .product-price small {
-    font-size: var(--fs-xs);
-    font-weight: 400;
-    color: var(--text-secondary, #94A3B8);
+    font-size: var(--fs-xs); /* Bawaan asli[span_67](start_span)[span_67](end_span) */
+    font-weight: 400; /* Bawaan asli[span_68](start_span)[span_68](end_span) */
+    color: var(--text-secondary, #94A3B8); /* Bawaan asli[span_69](start_span)[span_69](end_span) */
 }
 
 .btn-product-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: var(--primary);
-    font-size: var(--fs-sm);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    display: inline-flex; /* Bawaan asli[span_70](start_span)[span_70](end_span) */
+    align-items: center; /* Bawaan asli[span_71](start_span)[span_71](end_span) */
+    gap: 0.35rem; /* Bawaan asli[span_72](start_span)[span_72](end_span) */
+    color: var(--primary); /* Bawaan asli[span_73](start_span)[span_73](end_span) */
+    font-size: var(--fs-sm); /* Bawaan asli[span_74](start_span)[span_74](end_span) */
+    font-weight: 600; /* Bawaan asli[span_75](start_span)[span_75](end_span) */
+    text-decoration: none; /* Bawaan asli[span_76](start_span)[span_76](end_span) */
+    transition: color 0.3s ease; /* Bawaan asli[span_77](start_span)[span_77](end_span) */
 }
 
 .btn-product-cta svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Bawaan asli[span_78](start_span)[span_78](end_span) */
 }
 
-/* Responsive Breakpoints */
+/* Responsive Breakpoints[span_79](start_span)[span_79](end_span) */
 @media (max-width: 1024px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-3);
+        grid-template-columns: repeat(2, 1fr); /* Bawaan asli[span_80](start_span)[span_80](end_span) */
+        gap: var(--space-3); /* Bawaan asli[span_81](start_span)[span_81](end_span) */
     }
 }
 
 @media (max-width: 640px) {
     .products-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-4);
+        grid-template-columns: 1fr; /* Bawaan asli[span_82](start_span)[span_82](end_span) */
+        gap: var(--space-4); /* Bawaan asli[span_83](start_span)[span_83](end_span) */
     }
     
     .product-image-wrapper {
-        height: 200px;
+        height: 200px; /* Bawaan asli[span_84](start_span)[span_84](end_span) */
+    }
+    
+    /* 🆕 Optimasi Footer di HP Super Kecil */
+    .product-footer {
+        flex-direction: row; 
+        justify-content: space-between;
     }
 }
