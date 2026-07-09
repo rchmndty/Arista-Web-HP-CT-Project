@@ -1,5 +1,5 @@
 /**
- * ARISTA Core Engine - Generic CRUD, Validation, & Error Handling (Sprint 17.3)
+ * ARISTA Core Engine - Generic CRUD, Validation, & Error Handling (Sprint 17.3 - Fixed)
  */
 
 window.AristaCMS = {
@@ -61,19 +61,19 @@ window.AristaCMS = {
 
                 // 1. Aturan Wajib Diisi (Required)
                 if (rule.required && !value) {
-                    return { isValid: false, message: Field `${rule.label || field} tidak boleh dikosongkan.` };
+                    return { isValid: false, message: `Kolom ${rule.label || field} tidak boleh dikosongkan.` };
                 }
 
                 // 2. Aturan Angka Positif (Numeric & Positive)
                 if (rule.numeric && value) {
                     if (isNaN(value) || Number(value) < 0) {
-                        return { isValid: false, message: Field `${rule.label || field} harus berupa angka positif.` };
+                        return { isValid: false, message: `Kolom ${rule.label || field} harus berupa angka positif.` };
                     }
                 }
 
                 // 3. Aturan Panjang Karakter Minimum (Min Length)
                 if (rule.minLength && value.length < rule.minLength) {
-                    return { isValid: false, message: Field `${rule.label || field} minimal harus berisi ${rule.minLength} karakter.` };
+                    return { isValid: false, message: `Kolom ${rule.label || field} minimal harus berisi ${rule.minLength} karakter.` };
                 }
             }
             return { isValid: true, message: "Validasi sukses." };

@@ -1,5 +1,5 @@
 /**
- * ARISTA Page Controller - Catalog Workflow Pipeline Engine
+ * ARISTA Page Controller - Catalog Workflow Pipeline Engine (Supabase Connected)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -52,15 +52,24 @@ class CatalogPageManager {
         this.applyFilterAndSearch();
     }
 
+    // ==========================================================================
+    // SEKARANG MENGAMBIL DATA LANGSUNG DARI SUPABASE CLOUD (UPDATE TAHAP 17.6)
+    // ==========================================================================
     async loadProductData() {
         try {
-            const response = await fetch("data/products.json");
-            if (!response.ok) throw new Error("Gagal mengambil data JSON katalog");
-            this.products = await response.json();
+            // Mengambil seluruh data dari tabel 'products' dan mengurutkan dari yang terbaru
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            this.products = data || [];
             this.filteredProducts = [...this.products];
         } catch (error) {
-            console.error("Kesalahan inisialisasi data katalog produk:", error);
-            this.gridElement.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--danger)">Gagal memuat produk. Silakan coba muat ulang halaman.</p>`;
+            console.error("Kesalahan inisialisasi data katalog produk dari Supabase:", error);
+            this.gridElement.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--danger)">Gagal memuat produk dari server. Silakan coba muat ulang halaman.</p>`;
         }
     }
 
@@ -93,10 +102,12 @@ class CatalogPageManager {
         pageItems.forEach(product => {
             const card = document.createElement("div");
             card.className = "product-card";
+            
+            // PERUBAHAN UTAMA: Menggunakan properti database asli (product.image_url)
             card.innerHTML = `
                 <div class="product-image-wrapper">
                     ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                    <img src="${product.image}" alt="${product.title}" loading="lazy" class="product-img">
+                    <img src="${product.image_url}" alt="${product.title}" loading="lazy" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">${this.formatCategoryName(product.category)}</span>
@@ -115,6 +126,20 @@ class CatalogPageManager {
             `;
             this.gridElement.appendChild(card);
         });
+
+        // ==========================================================================
+        // TRICK AMAN UNTUK ANIMASI KARTU DINAMIS (GSAP / HOVER / REVEAL RE-TRIGGER)
+        // ==========================================================================
+        // Karena element HTML dibuat belakangan lewat JS, script animasi bawaan 
+        // harus dipaksa mendeteksi ulang element baru ini agar efeknya tidak macet.
+        
+        if (typeof gsap !== 'undefined' && window.ScrollTrigger) {
+            window.ScrollTrigger.refresh(); // Menyegarkan titik koordinat GSAP ScrollTrigger
+        }
+        
+        // Panggil kembali fungsi inisialisasi hover/reveal jika ada fungsi globalnya
+        if (typeof initializeHoverEffects === 'function') initializeHoverEffects();
+        if (typeof initializeRevealEffects === 'function') initializeRevealEffects();
     }
 
     formatCategoryName(slug) {
