@@ -107,7 +107,7 @@ class CatalogPageManager {
             card.innerHTML = `
                 <div class="product-image-wrapper">
                     ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                    <img src="${product.image_url}" alt="${product.title}" loading="lazy" class="product-img">
+                    <img src="${product.image}" alt="${product.title}" loading="lazy" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">${this.formatCategoryName(product.category)}</span>
