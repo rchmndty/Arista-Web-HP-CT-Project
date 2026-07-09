@@ -1,10 +1,7 @@
-/**
- * ARISTA Management Panel - FAQ Engine (Sprint 16)
- * [STANDALONE MOCK STORAGE SYSTEM - NO FIREBASE]
- */
-
 document.addEventListener("DOMContentLoaded", () => {
-    initFaqCMS();
+    setTimeout(() => {
+        initFaqCMS();
+    }, 600);
 });
 
 function initFaqCMS() {
@@ -23,13 +20,11 @@ function initFaqCMS() {
     let localFaqs = [];
     let isEditMode = false;
 
-    // Load data dari localStorage
     function loadFaqs() {
         const data = localStorage.getItem("arista_mock_faqs");
         if (data) {
             localFaqs = JSON.parse(data);
         } else {
-            // Data default jika localStorage kosong saat pertama kali dibuka
             localFaqs = [
                 { 
                     id: "faq-1", 
@@ -42,12 +37,10 @@ function initFaqCMS() {
         renderFaqs();
     }
 
-    // Simpan data ke localStorage
     function saveFaqs() {
         localStorage.setItem("arista_mock_faqs", JSON.stringify(localFaqs));
     }
 
-    // Render data ke tampilan Grid HTML
     function renderFaqs() {
         if (localFaqs.length === 0) {
             faqGrid.innerHTML = `<div class="loading-state-cms">Belum ada daftar FAQ terdaftar.</div>`;
@@ -71,7 +64,6 @@ function initFaqCMS() {
         });
     }
 
-    // Buka Modal (Mode Tambah / Ubah)
     function openModal(mode = "add", id = null) {
         faqForm.reset();
         faqIdInput.value = "";
@@ -99,7 +91,6 @@ function initFaqCMS() {
     closeModalBtn.addEventListener("click", closeModal);
     cancelModalBtn.addEventListener("click", closeModal);
 
-    // Kirim & Proses Data Form
     faqForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const payload = {
@@ -120,7 +111,6 @@ function initFaqCMS() {
         closeModal();
     });
 
-    // Ekspos fungsi global agar tombol onclick di baris string html bisa memanggil fungsinya
     window.editFaq = (id) => openModal("edit", id);
     window.deleteFaq = (id) => {
         if (confirm("Apakah Anda yakin ingin menghapus data tanya jawab ini?")) {
@@ -129,18 +119,6 @@ function initFaqCMS() {
             renderFaqs();
         }
     };
-
-    // Logout fallback sync
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (confirm("Keluar dari panel?")) {
-                localStorage.setItem('logout_redirect_index', 'true');
-                window.location.href = "../index.html";
-            }
-        });
-    }
 
     loadFaqs();
 }

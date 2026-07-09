@@ -1,10 +1,7 @@
-/**
- * ARISTA Management Panel - Full CRUD Testimonial Engine (Sprint 16)
- * [STANDALONE MOCK STORAGE SYSTEM - NO FIREBASE]
- */
-
 document.addEventListener("DOMContentLoaded", () => {
-    initTestimonialCMS();
+    setTimeout(() => {
+        initTestimonialCMS();
+    }, 600);
 });
 
 function initTestimonialCMS() {
@@ -24,13 +21,11 @@ function initTestimonialCMS() {
     let localTestimonials = [];
     let isEditMode = false;
 
-    // [READ] Load data dari localStorage
     function loadTestimonials() {
         const data = localStorage.getItem("arista_mock_testimonials");
         if (data) {
             localTestimonials = JSON.parse(data);
         } else {
-            // Data default awal
             localTestimonials = [
                 { 
                     id: "tst-1", 
@@ -48,7 +43,6 @@ function initTestimonialCMS() {
         localStorage.setItem("arista_mock_testimonials", JSON.stringify(localTestimonials));
     }
 
-    // [READ] Render data ke susunan Grid HTML
     function renderTestimonials() {
         if (localTestimonials.length === 0) {
             grid.innerHTML = `<div class="loading-state-cms">Belum ada testimonial pelanggan.</div>`;
@@ -75,7 +69,6 @@ function initTestimonialCMS() {
         });
     }
 
-    // Buka Modal (Akomodasi Tambah & Ubah)
     function openModal(mode = "add", id = null) {
         form.reset();
         testiIdInput.value = "";
@@ -104,7 +97,6 @@ function initTestimonialCMS() {
     closeModalBtn.addEventListener("click", closeModal);
     cancelModalBtn.addEventListener("click", closeModal);
 
-    // [CREATE & UPDATE] Kirim Form Data
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const payload = {
@@ -126,10 +118,8 @@ function initTestimonialCMS() {
         closeModal();
     });
 
-    // Ekspos ke lingkup window agar terbaca onclick HTML
     window.editTestimonial = (id) => openModal("edit", id);
     
-    // [DELETE] Hapus Testimonial
     window.deleteTestimonial = (id) => {
         if (confirm("Apakah Anda yakin ingin menghapus testimonial ini?")) {
             localTestimonials = localTestimonials.filter(t => t.id !== id);
@@ -137,18 +127,6 @@ function initTestimonialCMS() {
             renderTestimonials();
         }
     };
-
-    // Logout handler sync
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (confirm("Keluar dari panel admin?")) {
-                localStorage.setItem('logout_redirect_index', 'true');
-                window.location.href = "../index.html";
-            }
-        });
-    }
 
     loadTestimonials();
 }

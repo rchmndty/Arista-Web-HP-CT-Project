@@ -30,12 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (error) throw error;
 
-            // ✅ LOGIKA PERPINDAHAN HALAMAN (FIX)
-            // Jika tidak ada error, artinya sukses. Langsung tendang user ke dashboard!
-            window.location.href = 'dashboard.html';
+            // ✅ BERIKAN JEDA AMAN 500ms AGAR LOCALSTORAGE SELESAI MENULIS SESSION LOG IN
+            // Ini mencegah user ditendang balik oleh session.js milik dashboard.html
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 500);
 
         } catch (error) {
-            // Kembalikan visual state tombol ke semula
+            // Kembalikan visual state tombol ke semula jika gagal
             submitBtn.disabled = false;
             submitBtn.classList.remove("loading");
             errorDisplay.classList.remove("hidden");

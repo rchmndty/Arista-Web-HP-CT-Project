@@ -1,10 +1,7 @@
-/**
- * ARISTA Management Panel - Services Engine (Sprint 16)
- * [STANDALONE MOCK STORAGE SYSTEM - NO FIREBASE]
- */
-
 document.addEventListener("DOMContentLoaded", () => {
-    initServicesCMS();
+    setTimeout(() => {
+        initServicesCMS();
+    }, 600);
 });
 
 function initServicesCMS() {
@@ -49,7 +46,7 @@ function initServicesCMS() {
         servicesGrid.innerHTML = "";
         localServices.forEach(srv => {
             const card = document.createElement("div");
-            card.className = "cms-product-card-item"; // Reuse layout style box produk
+            card.className = "cms-product-card-item";
             card.innerHTML = `
                 <div class="cms-card-details">
                     <span class="cms-card-category-slug">[Icon: ${srv.icon}]</span>
@@ -120,18 +117,6 @@ function initServicesCMS() {
             renderServices();
         }
     };
-
-    // Logout system fallback sync
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (confirm("Keluar dari panel?")) {
-                localStorage.setItem('logout_redirect_index', 'true');
-                window.location.href = "../index.html";
-            }
-        });
-    }
 
     loadServices();
 }

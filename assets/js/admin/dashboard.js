@@ -1,16 +1,27 @@
-
 /**
- * ARISTA Page Component - Admin Dashboard Base Operations Controller
+ * ARISTA Page Component - Admin Dashboard Base Operations Controller (Supabase Fully Migrated)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    initDashboardProfile();
-    initLogoutHandler();
-    loadSystemCoreSummary();
+    // Berikan sedikit jeda agar session guard menyelesaikan validasi token cloud
+    setTimeout(() => {
+        initDashboardProfile();
+        loadSystemCoreSummary();
+    }, 600); 
 });
 
-function initDashboardProfile() {
-    firebase.auth().onAuthStateChanged((user) => {
+/**
+ * Memuat informasi user aktif dari Supabase Auth
+ */
+async function initDashboardProfile() {
+    try {
+        if (typeof supabase === 'undefined') return;
+
+        // Mengambil data user yang sedang login secara real-time dari session cloud
+        const { data: { user }, error } = await supabase.auth.getUser();
+        
+        if (error) throw error;
+
         if (user) {
             const email = user.email || "admin@aristaprint.com";
             const emailDisplay = document.getElementById("adminUserEmail");
@@ -19,55 +30,24 @@ function initDashboardProfile() {
             if (emailDisplay) emailDisplay.textContent = email;
             if (avatarDisplay) avatarDisplay.textContent = email.charAt(0).toUpperCase();
         }
-    });
+    } catch (error) {
+        console.error("Gagal mengambil session profile dari Supabase:", error.message);
+    }
 }
 
-// GANTI FUNCTION INITLOGOUTHANDLER DI DASHBOARD.JS
-function initLogoutHandler() {
-    const logoutBtn = document.getElementById("btnAdminLogout");
-    if (!logoutBtn) return;
-
-    logoutBtn.addEventListener("click", (e) => {
-        e.preventDefault(); // Mencegah reload halaman bawaan
-        
-        if (confirm("Apakah Anda yakin ingin keluar dari sesi administrator?")) {
-            // Pasang tanda penanda resmi ke localStorage agar session.js tidak mencegat rute
-            localStorage.setItem('logout_redirect_index', 'true');
-            
-            firebase.auth().signOut()
-                .then(() => {
-                    window.location.href = '../index.html';
-                })
-                .catch((error) => {
-                    console.error("Gagal memutuskan sesi autentikasi server:", error);
-                    window.location.href = '../index.html'; // Tetap arahkan ke depan jika gagal koneksi
-                });
-        }
-    });
-}
-
-
-
+/**
+ * Memuat ringkasan sistem dasar
+ */
 function loadSystemCoreSummary() {
     const versionDisplay = document.getElementById("coreVersion");
     if (versionDisplay && typeof ARISTA_CONFIG !== 'undefined') {
         versionDisplay.textContent = ARISTA_CONFIG.version || "1.0.0";
     }
 
-    // Placeholder inisialisasi awal untuk pembacaan koleksi Firebase di modul SPRINT berikutnya
-    const prodCounter = 
-
-
-function loadSystemCoreSummary() {
-    const versionDisplay = document.getElementById("coreVersion");
-    if (versionDisplay && typeof ARISTA_CONFIG !== 'undefined') {
-        versionDisplay.textContent = ARISTA_CONFIG.version || "1.0.0";
-    }
-
-    // Placeholder inisialisasi awal untuk pembacaan koleksi Firebase di modul SPRINT berikutnya
     const prodCounter = document.getElementById("countProducts");
     const servCounter = document.getElementById("countServices");
 
+    // Default value sebelum disinkronkan dengan table fetcher pada SPRINT berikutnya
     if (prodCounter) prodCounter.textContent = "0";
     if (servCounter) servCounter.textContent = "0";
 }

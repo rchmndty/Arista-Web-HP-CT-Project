@@ -1,5 +1,5 @@
 /**
- * ARISTA Admin Workspace - Shared Sidebar Component Loader
+ * ARISTA Admin Workspace - Shared Sidebar Component Loader (Supabase Migrated)
  * Automatically handles active states and secure logout fallback sync.
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,7 +14,7 @@ function renderAdminSidebar() {
     const currentPath = window.location.pathname;
     const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
 
-    // Template Navigasi Utama dengan tambahan menu Homepage CMS (homepage.html)
+    // Template Navigasi Utama (Tetap mempertahankan UI aslimu)
     const sidebarHtml = `
         <aside class="admin-sidebar">
             <div class="sidebar-brand">ARISTA<span>.</span></div>
@@ -59,21 +59,23 @@ function renderAdminSidebar() {
 
     wrapper.insertAdjacentHTML("afterbegin", sidebarHtml);
 
-    // Ikatan fungsi kontrol logout terpusat
+    // ✅ HUBUNGAN FUNGSI KONTROL LOGOUT TERPUSAT (SUPABASE MIGRATED)
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
+        logoutBtn.addEventListener("click", async (e) => {
             e.preventDefault();
-            if (confirm("Keluar dari panel admin?")) {
-                localStorage.setItem('logout_redirect_index', 'true');
-                
-                // Cek apakah Firebase terdeteksi untuk membersihkan token auth
-                if (typeof firebase !== 'undefined' && typeof firebase.auth === 'function' && firebase.auth().currentUser) {
-                    firebase.auth().signOut().finally(() => {
-                        window.location.href = "../index.html";
-                    });
-                } else {
-                    window.location.href = "../index.html";
+            
+            if (confirm("Apakah Anda yakin ingin keluar dari panel administrator Arista?")) {
+                try {
+                    if (typeof supabase !== 'undefined' && supabase.auth) {
+                        // Bersihkan token session dari server Supabase & Local Storage global
+                        await supabase.auth.signOut();
+                    }
+                } catch (error) {
+                    console.error("Gagal memutuskan sesi autentikasi server Supabase:", error.message);
+                } finally {
+                    // Tendang kembali ke halaman login (login.html satu direktori dengan dashboard.html)
+                    window.location.href = "login.html";
                 }
             }
         });

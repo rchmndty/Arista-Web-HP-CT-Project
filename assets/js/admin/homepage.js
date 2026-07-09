@@ -1,35 +1,20 @@
-/**
- * ARISTA Management Panel - Homepage Content Engine (Sprint 14)
- */
-
 let missionArray = [];
 
-// =========================================================================
-// 1. GANTI BLOK PALING ATAS DI HOMEPAGE.JS DENGAN KODE DI BAWAH INI
-// =========================================================================
 document.addEventListener("DOMContentLoaded", () => {
-    if (typeof firebase !== 'undefined') {
-        // PENGAMAN: Jika session.js mati, inisialisasi Firebase secara mandiri agar tidak crash
-        if (!firebase.apps.length && typeof ARISTA_CONFIG !== 'undefined') {
-            firebase.initializeApp(ARISTA_CONFIG.firebaseConfig);
+    setTimeout(() => {
+        if (typeof firebase !== 'undefined') {
+            if (!firebase.apps.length && typeof ARISTA_CONFIG !== 'undefined') {
+                firebase.initializeApp(ARISTA_CONFIG.firebaseConfig);
+            }
+            initHomepageCMS();
         }
-        initHomepageCMS();
-    }
+    }, 600);
 });
-
-// ... (Biarkan kode bagian tengah/form Anda tetap seperti aslinya) ...
-
-// =========================================================================
-// 2. GANTI POIN 5 (BAGIAN PALING BAWAH) DI HOMEPAGE.JS DENGAN KODE DI BAWAH INI
-// =========================================================================
-    // 5. Hubungkan Fungsi Kontrol Tombol Keluar (Logout)
-    
 
 function initHomepageCMS() {
     const database = firebase.database();
     const contentRef = database.ref("homepage_content");
 
-    // Ambil Referensi Elemen Form Input
     const form = document.getElementById("homepageCmsForm");
     const heroHeadline = document.getElementById("heroHeadline");
     const heroSubheadline = document.getElementById("heroSubheadline");
@@ -43,7 +28,6 @@ function initHomepageCMS() {
     const aboutDesc = document.getElementById("aboutDesc");
     const aboutVision = document.getElementById("aboutVision");
 
-    // Ambil Referensi Elemen Live Preview
     const prevHeroHeadline = document.getElementById("prevHeroHeadline");
     const prevHeroSubheadline = document.getElementById("prevHeroSubheadline");
     const prevHeroCtaPrimary = document.getElementById("prevHeroCtaPrimary");
@@ -52,11 +36,9 @@ function initHomepageCMS() {
     const prevAboutTitle = document.getElementById("prevAboutTitle");
     const prevAboutDesc = document.getElementById("prevAboutDesc");
 
-    // 1. Ambil data asli dari Firebase Realtime Database
     contentRef.once("value").then((snapshot) => {
         const data = snapshot.val();
         if (data) {
-            // Isi Form dengan data lama jika ada
             heroHeadline.value = data.hero?.headline || "";
             heroSubheadline.value = data.hero?.subheadline || "";
             heroCtaPrimaryText.value = data.hero?.ctaPrimaryText || "";
@@ -71,7 +53,6 @@ function initHomepageCMS() {
 
             missionArray = data.about?.missions || [];
         } else {
-            // Default Fallback jika database masih kosong kosong awal
             missionArray = [
                 "Memberikan hasil cetak berkualitas tinggi dan presisi.",
                 "Memberikan pelayanan yang cepat, responsif, dan profesional."
@@ -79,9 +60,8 @@ function initHomepageCMS() {
         }
         renderMissionList();
         updateLivePreview();
-    }).catch(err => console.error("Gagal sinkronisasi data Firebase:", err));
+    }).catch(err => console.error(err));
 
-    // 2. Event Listener Input untuk Mekanisme Live Preview
     const allInputs = form.querySelectorAll("input, textarea");
     allInputs.forEach(input => {
         input.addEventListener("input", updateLivePreview);
@@ -97,7 +77,6 @@ function initHomepageCMS() {
         prevAboutDesc.textContent = aboutDesc.value || "Narasi profil perusahaan...";
     }
 
-    // 3. Logika Manajemen Array Misi (Dinamis CRUD Row)
     document.getElementById("addMissionBtn").addEventListener("click", () => {
         missionArray.push("");
         renderMissionList();
@@ -131,7 +110,6 @@ function initHomepageCMS() {
         });
     }
 
-    // 4. Proses Submit Form Validasi & Simpan ke Firebase
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         
@@ -139,7 +117,6 @@ function initHomepageCMS() {
         saveBtn.disabled = true;
         saveBtn.querySelector("span").textContent = "Menyimpan...";
 
-        // Bersihkan array misi dari string kosong pembawa bug
         const cleanMissions = missionArray.filter(m => m.trim() !== "");
 
         const updatePayload = {
@@ -172,39 +149,4 @@ function initHomepageCMS() {
                 saveBtn.querySelector("span").textContent = "Simpan Perubahan";
             });
     });
-
-    // 5. Hubungkan Fungsi Kontrol Tombol Keluar (Logout)
-    // GANTI POIN 5 DI HOMEPAGE.JS
-// 1. GANTI BLOK PALING ATAS DI HOMEPAGE.JS DENGAN INI:
-document.addEventListener("DOMContentLoaded", () => {
-    if (typeof firebase !== 'undefined') {
-        // PROTEKSI: Nyalakan Firebase secara mandiri jika session.js sedang dimatikan
-        if (typeof ARISTA_CONFIG !== 'undefined' && !firebase.apps.length) {
-            firebase.initializeApp(ARISTA_CONFIG.firebaseConfig);
-        }
-        initHomepageCMS();
-    }
-});
-
-// ... (biarkan kode tengah/form tetap seperti asli Anda) ...
-
-// 2. GANTI POIN 5 (BAGIAN PALING BAWAH) DI HOMEPAGE.JS DENGAN INI:
-const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault(); // Mencegah reload halaman bawaan dari button
-            
-            if (confirm("Apakah Anda yakin ingin keluar dari Admin Panel?")) {
-                // Pasang tanda penanda resmi ke localStorage agar session.js tidak mencegat rute
-                localStorage.setItem('logout_redirect_index', 'true');
-                
-                firebase.auth().signOut().then(() => {
-                    window.location.href = "../index.html";
-                }).catch((error) => {
-                    console.error("Gagal logout:", error);
-                    window.location.href = "../index.html";
-                });
-            }
-        });
-    }
 }
