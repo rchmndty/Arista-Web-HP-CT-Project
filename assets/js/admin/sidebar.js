@@ -75,7 +75,7 @@ function renderAdminSidebar() {
                     console.error("Gagal memutuskan sesi autentikasi server Supabase:", error.message);
                 } finally {
                     // Tendang kembali ke halaman login (login.html satu direktori dengan dashboard.html)
-                    window.location.href = "index.html";
+                    window.location.href = "../index.html";
                 }
             }
         });
