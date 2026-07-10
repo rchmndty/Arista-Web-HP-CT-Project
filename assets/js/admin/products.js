@@ -1,10 +1,13 @@
 /**
- * ARISTA Management Panel - Product Catalog CMS (Sprint 17.4 - CRUD Live Engine)
- * MODIFIED: Semua Form Opsional (Kecuali Kategori), Tampilan Kosong Tanpa Fallback Huruf, + Fitur CRUD Kategori.
+ * ARISTA Management Panel - Product Catalog CMS (Live Supabase Engine)
+ * Ditransformasikan penuh menggunakan Native Supabase SDK untuk koneksi langsung tanpa perantara.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    initProductCMS();
+    // Berikan delay kecil seperti session guard agar client Supabase siap 100%
+    setTimeout(() => {
+        initProductCMS();
+    }, 100);
 });
 
 function initProductCMS() {
@@ -34,7 +37,7 @@ function initProductCMS() {
     const imgPlaceholderText = document.querySelector(".img-placeholder-text"); 
     const productImageFileInput = document.getElementById("productImageFile");
 
-    // 🆕 Elemen DOM Pop-Up Modal & Form Manajemen Kategori
+    // Elemen DOM Pop-Up Modal & Form Manajemen Kategori
     const categoryModal = document.getElementById("categoryModal");
     const openCategoryModalBtn = document.getElementById("openCategoryModalBtn");
     const closeCatModalBtn = document.getElementById("closeCatModalBtn");
@@ -46,7 +49,7 @@ function initProductCMS() {
     let isEditMode = false; 
     let fileToUpload = null; 
 
-    // 🆕 State Management Kategori (Menggunakan LocalStorage Terproteksi)
+    // State Management Kategori (Menggunakan LocalStorage Terproteksi)
     let dynamicCategories = JSON.parse(localStorage.getItem("arista_categories")) || [
         { slug: "digital-printing", name: "Digital Printing" },
         { slug: "dokumen-jilid", name: "Dokumen & Jilid" },
@@ -54,7 +57,7 @@ function initProductCMS() {
     ];
 
     // =========================================================================
-    // 🆕 ENGINE MANAJEMEN KATEGORI (Dinamis Dropdown & List)
+    // ENGINE MANAJEMEN KATEGORI (Dinamis Dropdown & List)
     // =========================================================================
     function syncCategoriesToUI() {
         localStorage.setItem("arista_categories", JSON.stringify(dynamicCategories));
@@ -124,19 +127,32 @@ function initProductCMS() {
     if (closeCatModalBtn) closeCatModalBtn.addEventListener("click", () => categoryModal.classList.remove("active"));
 
     // =========================================================================
-    // 1. Ambil Data (READ) dari Cloud Database via Helper Generic
+    // 1. Ambil Data (READ) Ambil Data Langsung dari Supabase
     // =========================================================================
     async function loadSupabaseProducts() {
         if (productsGrid) {
-            productsGrid.innerHTML = `<div class="loading-state-cms">Memuat data dari cloud database...</div>`;
+            productsGrid.innerHTML = `<div class="loading-state-cms">Menghubungkan ke Cloud Database Supabase...</div>`;
         }
         try {
-            localProductsCache = await window.AristaCMS.CRUD.read('products', 'created_at', false);
+            // Memastikan instance global SDK Supabase tersedia
+            if (!window.supabase) {
+                throw new Error("Supabase Client gagal diinisialisasi. Periksa config.js Anda.");
+            }
+
+            // Query data langsung dari tabel 'products'
+            const { data, error } = await window.supabase
+                .from('products')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            localProductsCache = data || [];
             renderProductsGrid();
         } catch (error) {
-            console.error("Gagal memuat produk:", error.message);
+            console.error("Gagal memuat produk dari Supabase:", error.message);
             if (productsGrid) {
-                productsGrid.innerHTML = `<div class="loading-state-cms" style="color: var(--danger-color);">${error.message}</div>`;
+                productsGrid.innerHTML = `<div class="loading-state-cms" style="color: #ff4d4d;">⚠️ Error: ${error.message}</div>`;
             }
         }
     }
@@ -157,7 +173,7 @@ function initProductCMS() {
         });
 
         if (filtered.length === 0) { 
-            productsGrid.innerHTML = `<div class="loading-state-cms">Tidak ada data produk ditemukan.</div>`; 
+            productsGrid.innerHTML = `<div class="loading-state-cms">Tidak ada data produk ditemukan di database.</div>`; 
             return;
         }
 
@@ -166,7 +182,6 @@ function initProductCMS() {
             const card = document.createElement("div"); 
             card.className = "cms-product-card-item"; 
             
-            // Pengondisian harga & unit agar tidak memunculkan teks jika sengaja dikosongkan
             const priceText = product.price ? product.price : "";
             const unitText = product.unit ? `<small>${product.unit}</small>` : "";
             const finalPriceDisplay = (priceText || unitText) ? `${priceText}${unitText}` : "";
@@ -178,7 +193,6 @@ function initProductCMS() {
                 </div>
                 <div class="cms-card-details">
                     <span class="cms-card-category-slug">${formatCategoryName(product.category)}</span>
-                    <!-- 🆕 Diubah total: Tanpa fallback teks, murni kosong jika data tidak diisi -->
                     <h4>${product.title || ''}</h4>
                     <p class="cms-card-price-display">${finalPriceDisplay}</p>
                     <div class="cms-card-actions-row">
@@ -287,26 +301,9 @@ function initProductCMS() {
         productForm.addEventListener("submit", async (e) => { 
             e.preventDefault(); 
 
-            // 🆕 Semua aturan diubah menjadi `required: false`, menyisakan `category` yang murni terkunci wajib isi
-            const validationRules = {
-                title: { required: false, label: "Nama Produk" },
-                category: { required: true, label: "Kategori" },
-                price: { required: false, label: "Harga Display" },
-                unit: { required: false, label: "Satuan / Unit" },
-                desc: { required: false, label: "Deskripsi Detil Produk" }
-            };
-
-            const dataToValidate = {
-                title: productTitleInput.value.trim(),
-                category: productCategorySelect.value,
-                price: productPriceInput.value.trim(),
-                unit: productUnitInput.value.trim(),
-                desc: productDescInput.value.trim()
-            };
-
-            const validation = window.AristaCMS.Validator.validate(dataToValidate, validationRules);
-            if (!validation.isValid) {
-                alert(validation.message);
+            // Validasi lokal mandiri agar tidak bergantung script helper eksternal
+            if (!productCategorySelect.value) {
+                alert("Kategori produk wajib dipilih!");
                 return;
             }
 
@@ -320,13 +317,28 @@ function initProductCMS() {
             try {
                 let finalImageUrl = productImageUrlInput.value.trim(); 
 
+                // Unggah File Gambar jika ada file yang dipilih melalui Supabase Storage Bucket
                 if (fileToUpload) {
-                    finalImageUrl = await window.AristaCMS.CRUD.uploadFile('products', 'product-catalog', fileToUpload);
+                    const fileExt = fileToUpload.name.split('.').pop();
+                    const fileName = `prod-${Date.now()}.${fileExt}`;
+                    
+                    const { data: uploadData, error: uploadError } = await window.supabase
+                        .storage
+                        .from('product-catalog')
+                        .upload(fileName, fileToUpload);
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: urlData } = window.supabase
+                        .storage
+                        .from('product-catalog')
+                        .getPublicUrl(fileName);
+
+                    finalImageUrl = urlData.publicUrl;
                 }
 
                 const idProduct = isEditMode ? productIdInput.value : "prod-" + Date.now(); 
                 
-                // 🆕 Data dikirim apa adanya sesuai input formulir tanpa penimpaan teks default
                 const payload = {
                     id: idProduct,
                     title: productTitleInput.value.trim() || "", 
@@ -339,15 +351,24 @@ function initProductCMS() {
                 };
 
                 if (isEditMode) {
-                    await window.AristaCMS.CRUD.update('products', idProduct, payload);
+                    // Update data produk eksis via Native SDK
+                    const { error } = await window.supabase
+                        .from('products')
+                        .update(payload)
+                        .eq('id', idProduct);
+                    if (error) throw error;
                 } else {
-                    await window.AristaCMS.CRUD.create('products', payload);
+                    // Insert data produk baru via Native SDK
+                    const { error } = await window.supabase
+                        .from('products')
+                        .insert([payload]);
+                    if (error) throw error;
                 }
 
                 await loadSupabaseProducts();
                 closeModal(); 
             } catch (error) {
-                alert("Gagal memproses penyimpanan data: " + error.message);
+                alert("Gagal memproses penyimpanan data ke Supabase: " + error.message);
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;
@@ -366,9 +387,15 @@ function initProductCMS() {
     };
 
     window.actionDeleteProduct = async function(id) { 
-        if (confirm("Apakah Anda yakin ingin menghapus item produk ini secara permanen dari Cloud Database?")) { 
+        if (confirm("Apakah Anda yakin ingin menghapus item produk ini secara permanen dari Cloud Database Supabase?")) { 
             try {
-                await window.AristaCMS.CRUD.delete('products', id);
+                // Hapus data dari tabel via Native SDK
+                const { error } = await window.supabase
+                    .from('products')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) throw error;
                 await loadSupabaseProducts();
             } catch (error) {
                 alert("Gagal menghapus produk: " + error.message);
@@ -381,7 +408,7 @@ function initProductCMS() {
         return found ? found.name : slug; 
     }
 
-    // Inisialisasi Pertama
+    // Inisialisasi Pertama saat halaman siap
     syncCategoriesToUI(); 
     loadSupabaseProducts(); 
 
@@ -396,7 +423,6 @@ function initProductCMS() {
                     const { error } = await window.supabase.auth.signOut();
                     if (error) throw error;
                     
-                    // Bersihkan cache lokal jika diperlukan dan tendang ke login
                     localStorage.removeItem("arista_categories");
                     window.location.replace("login.html");
                 } catch (error) {
