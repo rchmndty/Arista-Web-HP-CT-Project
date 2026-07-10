@@ -301,7 +301,6 @@ function initProductCMS() {
         productForm.addEventListener("submit", async (e) => { 
             e.preventDefault(); 
 
-            // Validasi lokal mandiri agar tidak bergantung script helper eksternal
             if (!productCategorySelect.value) {
                 alert("Kategori produk wajib dipilih!");
                 return;
@@ -317,7 +316,6 @@ function initProductCMS() {
             try {
                 let finalImageUrl = productImageUrlInput.value.trim(); 
 
-                // Unggah File Gambar jika ada file yang dipilih melalui Supabase Storage Bucket
                 if (fileToUpload) {
                     const fileExt = fileToUpload.name.split('.').pop();
                     const fileName = `prod-${Date.now()}.${fileExt}`;
@@ -351,14 +349,12 @@ function initProductCMS() {
                 };
 
                 if (isEditMode) {
-                    // Update data produk eksis via Native SDK
                     const { error } = await window.supabase
                         .from('products')
                         .update(payload)
                         .eq('id', idProduct);
                     if (error) throw error;
                 } else {
-                    // Insert data produk baru via Native SDK
                     const { error } = await window.supabase
                         .from('products')
                         .insert([payload]);
@@ -389,7 +385,6 @@ function initProductCMS() {
     window.actionDeleteProduct = async function(id) { 
         if (confirm("Apakah Anda yakin ingin menghapus item produk ini secara permanen dari Cloud Database Supabase?")) { 
             try {
-                // Hapus data dari tabel via Native SDK
                 const { error } = await window.supabase
                     .from('products')
                     .delete()
