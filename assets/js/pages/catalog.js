@@ -22,8 +22,39 @@ class CatalogPageManager {
         this.resetBtn = document.getElementById("resetFiltersBtn");
     }
 
+    // ==========================================================================
+    // 🆕 UTILITY ENGINE: AMBIL DATA STRUKTUR KATEGORI DARI LOCALSTORAGE
+    // ==========================================================================
+    getDynamicCategories() {
+        return JSON.parse(localStorage.getItem("arista_categories")) || [
+            { slug: "digital-printing", name: "Digital Printing" },
+            { slug: "dokumen-jilid", name: "Dokumen & Jilid" },
+            { slug: "cetak-foto", name: "Cetak Foto" }
+        ];
+    }
+
+    // ==========================================================================
+    // 🆕 UTILITY ENGINE: MERENDER TOMBOL FILTER SECARA OTOMATIS KE HTML
+    // ==========================================================================
+    renderFilterTabs() {
+        const tabsContainer = document.querySelector(".filter-tabs");
+        if (tabsContainer) {
+            const categories = this.getDynamicCategories();
+            // Reset tab container, sisakan default "Semua Kategori"
+            tabsContainer.innerHTML = `<button class="filter-tab active" data-category="all" role="tab" aria-selected="true">Semua Kategori</button>`;
+            
+            // Loop data dari CMS untuk membuat tombol baru
+            categories.forEach(cat => {
+                tabsContainer.innerHTML += `<button class="filter-tab" data-category="${cat.slug}" role="tab" aria-selected="false">${cat.name}</button>`;
+            });
+        }
+    }
+
     async initialize() {
         await this.loadProductData();
+        
+        // 🆕 Jalankan render tombol dinamis sebelum script Filter diinisialisasi
+        this.renderFilterTabs();
         
         this.searchComponent = new CatalogSearch("catalogSearch", "clearSearch", (query) => {
             this.searchQuery = query;
@@ -99,12 +130,12 @@ class CatalogPageManager {
         const endIndex = startIndex + this.itemsPerPage;
         const pageItems = this.filteredProducts.slice(startIndex, endIndex);
 
-                pageItems.forEach(product => {
+        pageItems.forEach(product => {
             const card = document.createElement("div");
             card.className = "product-card";
             
             // 🆕 Integrasi Engine CTA WhatsApp dari contact.js (Otomatis Deteksi Produk)
-            const whatsappAdmin = "6285243000154"; // Nomor resmi dari contact.js
+            const whatsappAdmin = "6282198325877"; // Nomor resmi dari contact.js
             const templatePesan = `Halo Admin Arista.\n\nSaya ingin memesan produk dari Katalog:\n- Nama Produk: ${product.title}\n- Kategori: ${this.formatCategoryName(product.category)}\n- Harga: ${product.price} / ${product.unit}\n\nMohon informasi langkah pemesanan selanjutnya. Terima kasih!`;
             const textTerencode = encodeURIComponent(templatePesan);
             const linkWhatsApp = `https://wa.me/${whatsappAdmin}?text=${textTerencode}`;
@@ -133,29 +164,24 @@ class CatalogPageManager {
             this.gridElement.appendChild(card);
         });
 
-
         // ==========================================================================
         // TRICK AMAN UNTUK ANIMASI KARTU DINAMIS (GSAP / HOVER / REVEAL RE-TRIGGER)
         // ==========================================================================
-        // Karena element HTML dibuat belakangan lewat JS, script animasi bawaan 
-        // harus dipaksa mendeteksi ulang element baru ini agar efeknya tidak macet.
-        
         if (typeof gsap !== 'undefined' && window.ScrollTrigger) {
-            window.ScrollTrigger.refresh(); // Menyegarkan titik koordinat GSAP ScrollTrigger
+            window.ScrollTrigger.refresh(); 
         }
         
-        // Panggil kembali fungsi inisialisasi hover/reveal jika ada fungsi globalnya
         if (typeof initializeHoverEffects === 'function') initializeHoverEffects();
         if (typeof initializeRevealEffects === 'function') initializeRevealEffects();
     }
 
+    // ==========================================================================
+    // 🔴 SINKRONISASI FORMAT NAMA KATEGORI DARI CMS (DINAMIS MAPPING)
+    // ==========================================================================
     formatCategoryName(slug) {
-        const categories = {
-            "digital-printing": "Digital Printing",
-            "dokumen-jilid": "Dokumen & Jilid",
-            "cetak-foto": "Cetak Foto"
-        };
-        return categories[slug] || slug;
+        const categories = this.getDynamicCategories();
+        const found = categories.find(c => c.slug === slug);
+        return found ? found.name : slug;
     }
 
     resetAllControls() {
