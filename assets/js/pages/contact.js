@@ -31,7 +31,7 @@ function initContactFormHandler() {
         const encodedText = encodeURIComponent(whatsappText);
 
         // Nomor tujuan WhatsApp Admin Arista
-        const adminPhoneNumber = "6285243000154";
+        const adminPhoneNumber = "6282198325877";
 
         // Penggabungan URL utama wa.me
         const whatsappUrl = `https://wa.me/${adminPhoneNumber}?text=${encodedText}`;

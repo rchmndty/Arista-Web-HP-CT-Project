@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const { data } = await supabase.auth.getSession();
         const hasActiveUser = data.session !== null;
 
-        // 2. Logika "Tegas tapi Sabar"
+        // 2. Logika "Tegas tapi Sabar" - Belokkan langsung ke products.html
         if (hasActiveUser && isLoginPage) {
-            window.location.replace('dashboard.html');
+            window.location.replace('products.html');
         } else if (!hasActiveUser && !isLoginPage) {
-            // Jika benar-benar tidak ada user, baru tendang
+            // Jika benar-benar tidak ada user, baru tendang ke login
             window.location.replace('login.html');
         }
     }, 500); // Tunggu 500ms agar storage terbaca

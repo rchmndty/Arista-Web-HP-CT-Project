@@ -382,6 +382,28 @@ function initProductCMS() {
     }
 
     // Inisialisasi Pertama
-    syncCategoriesToUI();
-    loadSupabaseProducts();
-}
+    syncCategoriesToUI(); 
+    loadSupabaseProducts(); 
+
+    // =========================================================================
+    // 🔴 ENGINE LOGOUT ADMIN (Supabase Auth Integrasi)
+    // =========================================================================
+    const logoutBtn = document.getElementById("adminLogoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", async () => {
+            if (confirm("Apakah Anda yakin ingin keluar dari panel admin?")) {
+                try {
+                    const { error } = await window.supabase.auth.signOut();
+                    if (error) throw error;
+                    
+                    // Bersihkan cache lokal jika diperlukan dan tendang ke login
+                    localStorage.removeItem("arista_categories");
+                    window.location.replace("login.html");
+                } catch (error) {
+                    alert("Gagal logout: " + error.message);
+                }
+            }
+        });
+    }
+
+} // <--- Akhir penutup fungsi initProductCMS
